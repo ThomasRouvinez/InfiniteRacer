@@ -1,0 +1,162 @@
+fileFormatVersion: 2
+guid: 84da2444dbf19124096f14bad04a809c
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Air Entries
+    100002: Front
+    100004: Front Turret Left
+    100006: Front Turret Right
+    100008: Head
+    100010: LInk
+    100012: Main
+    100014: PannelLeft
+    100016: PannelRight
+    100018: Pannels
+    100020: PropellerLeft
+    100022: PropellerRight
+    100024: Rear Hidders
+    100026: Rear Hider Left
+    100028: Rear Hider Right
+    100030: //RootNode
+    100032: Spine
+    100034: Tail
+    100036: Turrets
+    100038: Turrets.2
+    100040: Under
+    100042: Wing Left
+    100044: Wing Right
+    100046: WingLeft
+    100048: WingRight
+    400000: Air Entries
+    400002: Front
+    400004: Front Turret Left
+    400006: Front Turret Right
+    400008: Head
+    400010: LInk
+    400012: Main
+    400014: PannelLeft
+    400016: PannelRight
+    400018: Pannels
+    400020: PropellerLeft
+    400022: PropellerRight
+    400024: Rear Hidders
+    400026: Rear Hider Left
+    400028: Rear Hider Right
+    400030: //RootNode
+    400032: Spine
+    400034: Tail
+    400036: Turrets
+    400038: Turrets.2
+    400040: Under
+    400042: Wing Left
+    400044: Wing Right
+    400046: WingLeft
+    400048: WingRight
+    2300000: Air Entries
+    2300002: Front Turret Left
+    2300004: Front Turret Right
+    2300006: Head
+    2300008: LInk
+    2300010: PannelLeft
+    2300012: PannelRight
+    2300014: PropellerLeft
+    2300016: PropellerRight
+    2300018: Rear Hider Left
+    2300020: Rear Hider Right
+    2300022: Spine
+    2300024: Tail
+    2300026: Turrets
+    2300028: Turrets.2
+    2300030: Under
+    2300032: WingLeft
+    2300034: WingRight
+    3300000: Air Entries
+    3300002: Front Turret Left
+    3300004: Front Turret Right
+    3300006: Head
+    3300008: LInk
+    3300010: PannelLeft
+    3300012: PannelRight
+    3300014: PropellerLeft
+    3300016: PropellerRight
+    3300018: Rear Hider Left
+    3300020: Rear Hider Right
+    3300022: Spine
+    3300024: Tail
+    3300026: Turrets
+    3300028: Turrets.2
+    3300030: Under
+    3300032: WingLeft
+    3300034: WingRight
+    4300000: Head
+    4300002: Air Entries
+    4300004: Front Turret Left
+    4300006: Front Turret Right
+    4300008: Spine
+    4300010: Under
+    4300012: LInk
+    4300014: Tail
+    4300016: PannelLeft
+    4300018: PannelRight
+    4300020: Rear Hider Left
+    4300022: Rear Hider Right
+    4300024: WingLeft
+    4300026: Turrets
+    4300028: PropellerRight
+    4300030: WingRight
+    4300032: Turrets.2
+    4300034: PropellerLeft
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 2
+    materialSearch: 2
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 0
+    splitTangentsAcrossUV: 1
+    normalImportMode: 1
+    tangentImportMode: 1
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 

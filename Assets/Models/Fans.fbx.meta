@@ -1,0 +1,166 @@
+fileFormatVersion: 2
+guid: 10fd3273a71913e429c2378562356d91
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Black
+    100002: Black.2
+    100004: Black.3
+    100006: Black.4
+    100008: Black.5
+    100010: Black.6
+    100012: Blades
+    100014: Face 1
+    100016: Fan
+    100018: //RootNode
+    100020: Mask
+    100022: Prop
+    100024: Prop.1
+    100026: Prop.2
+    100028: Prop.3
+    100030: Prop.4
+    100032: Prop.5
+    100034: Propellers
+    100036: Yellow
+    100038: Yellow.2
+    100040: Yellow.3
+    100042: Yellow.4
+    100044: Yellow.5
+    100046: Yellow.6
+    100048: Decals
+    100050: Propeller
+    400000: Black
+    400002: Black.2
+    400004: Black.3
+    400006: Black.4
+    400008: Black.5
+    400010: Black.6
+    400012: Blades
+    400014: Face 1
+    400016: Fan
+    400018: //RootNode
+    400020: Mask
+    400022: Prop
+    400024: Prop.1
+    400026: Prop.2
+    400028: Prop.3
+    400030: Prop.4
+    400032: Prop.5
+    400034: Propellers
+    400036: Yellow
+    400038: Yellow.2
+    400040: Yellow.3
+    400042: Yellow.4
+    400044: Yellow.5
+    400046: Yellow.6
+    400048: Decals
+    400050: Propeller
+    2300000: Black
+    2300002: Black.2
+    2300004: Black.3
+    2300006: Black.4
+    2300008: Black.5
+    2300010: Black.6
+    2300012: Face 1
+    2300014: Fan
+    2300016: Mask
+    2300018: Propellers
+    2300020: Yellow
+    2300022: Yellow.2
+    2300024: Yellow.3
+    2300026: Yellow.4
+    2300028: Yellow.5
+    2300030: Yellow.6
+    2300032: Decals
+    2300034: //RootNode
+    2300036: Propeller
+    3300000: Black
+    3300002: Black.2
+    3300004: Black.3
+    3300006: Black.4
+    3300008: Black.5
+    3300010: Black.6
+    3300012: Face 1
+    3300014: Fan
+    3300016: Mask
+    3300018: Propellers
+    3300020: Yellow
+    3300022: Yellow.2
+    3300024: Yellow.3
+    3300026: Yellow.4
+    3300028: Yellow.5
+    3300030: Yellow.6
+    3300032: Decals
+    3300034: //RootNode
+    3300036: Propeller
+    4300000: Fan
+    4300002: Mask
+    4300004: Propellers
+    4300006: Yellow
+    4300008: Black
+    4300010: Yellow.2
+    4300012: Black.2
+    4300014: Yellow.3
+    4300016: Black.3
+    4300018: Yellow.4
+    4300020: Black.4
+    4300022: Yellow.5
+    4300024: Black.5
+    4300026: Yellow.6
+    4300028: Black.6
+    4300030: Face 1
+    4300032: Propeller
+    4300034: Decals
+    9500000: //RootNode
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .5
+    meshCompression: 3
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
