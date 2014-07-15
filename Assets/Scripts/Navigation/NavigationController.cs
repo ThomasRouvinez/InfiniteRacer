@@ -23,10 +23,6 @@ public class NavigationController : MonoBehaviour {
 	public Transform rotationAxis;
 	public PlayerBehaviour player;
 
-	//public GameObject occlusionLight;
-	//private GameObject navigation;
-	//private NavigationController navigationScript;
-	
 	float GenerateTorque(){
 		return UnityEngine.Random.Range(0,12) * 60f;
 	}
