@@ -20,6 +20,8 @@ public class MenuAnimator : MonoBehaviour {
 	private int tempRandom;
 	private int tmpFontSize;
 	private bool tmpBool;
+	private int browseShip;
+	private string hangarSelected;
 
 	public float translationSpeed;
 	public float scaleSpeed;
@@ -48,6 +50,7 @@ public class MenuAnimator : MonoBehaviour {
 	public GUISkin skinCreditsString;
 	public GUISkin skinCreditsAttributions;
 	public GUISkin hardcore;
+	public GUISkin skinHangarSelectedButton;
 
 	public GUISkin[] creditHeads;
 	public GUISkin[] shipsScreens;
@@ -80,6 +83,7 @@ public class MenuAnimator : MonoBehaviour {
 		selected = -1;
 		tempCount = -1;
 		tmpFontSize = 0;
+		browseShip = 0;
 		tmpBool = false;
 		highscores = null;
 
@@ -140,10 +144,12 @@ public class MenuAnimator : MonoBehaviour {
 		creditSelected = 2;
 
 		resetBars();
+		hangarSelection();
 
 		// Reload the settings.
 		GameConfiguration.Instance.gameMusicOn = PlayerPrefs.GetInt("gameMusicOn", 1) == 1 ? true : false;
 		GameConfiguration.Instance.menuMusicOn = PlayerPrefs.GetInt("menuMusicOn", 1) == 0 ? false : true;
+		GameConfiguration.Instance.shipSelected = PlayerPrefs.GetInt("ship", 0);
 	}
 
 	void Update(){
@@ -378,18 +384,33 @@ public class MenuAnimator : MonoBehaviour {
 
 			// Display selection of ships.
 			if(GUI.Button(buttons[7].rect, "<size=" + (buttons[7].rect.width * 0.05f) + ">NEXT</size>")){
-				// TO DO: swapping of menus[6] and menus[7].
+				// Select next ship.
+				if(browseShip +2 < shipsScreens.Length){
+					browseShip += 2;
+				}
+				else{
+					browseShip = 0;
+				}
+
+				hangarSelection();
 			}
 
-			else if(GUI.Button(buttons[8].rect, "<size=" + (buttons[7].rect.width * 0.05f) + ">SELECT</size>")){
-				// TO DO: enable to select the right ship.
+			if(hangarSelected == "SELECTED"){
+				GUI.skin = skinHangarSelectedButton;
 			}
 
-			GUI.skin = shipsScreens[1];
-			GUI.Box(menus[6].rect, "");	// Ship Arts.
+			if(GUI.Button(buttons[8].rect, "<size=" + (buttons[7].rect.width * 0.05f) + ">" + hangarSelected + "</size>")){
+				GameConfiguration.Instance.shipSelected = browseShip / 2;
+				PlayerPrefs.SetInt("ship", GameConfiguration.Instance.shipSelected);
 
-			GUI.skin = shipsScreens[0];
+				hangarSelection();
+			}
+
+			GUI.skin = shipsScreens[browseShip];
 			GUI.Box(menus[7].rect, "");	// Ship description.
+
+			GUI.skin = shipsScreens[browseShip+1];
+			GUI.Box(menus[6].rect, "");	// Ship Arts.
 
 			GUI.skin = null;
 			break;
@@ -548,6 +569,16 @@ public class MenuAnimator : MonoBehaviour {
 	private void resetBars(){
 		LeanTween.move(LightBar, new Vector3(-9.85f, 6.8f, -1.63f), 0.1f);
 		LeanTween.move(DarkBar, new Vector3(-8.2f, 4.7f, -1.1f), 0.2f);
+	}
+
+	private void hangarSelection(){
+		// Determine if ship is selected already.
+		if(browseShip/2 == GameConfiguration.Instance.shipSelected){
+			hangarSelected = "SELECTED";
+		}
+		else{
+			hangarSelected = "SELECT";
+		}
 	}
 
 	// ------------------------------------------------------------------

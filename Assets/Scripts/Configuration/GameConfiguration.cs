@@ -56,5 +56,5 @@ public class GameConfiguration {
 	public bool gameMusicOn;
 	public bool menuMusicOn;
 	public bool hardcoreMode = false;
-	public short shipSelected = 0;
+	public int shipSelected = 0;
 }
