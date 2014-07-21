@@ -34,7 +34,7 @@ public class NavigationController : MonoBehaviour {
 		Quaternion nextOrientation = Quaternion.identity;
 		Spline currentSpline = null;
 
-		NavigationBehaviour pipePrefab=startPipePrefab;
+		NavigationBehaviour pipePrefab = startPipePrefab;
 		
 		for(int i = 0 ; i < pipes.Length; i++){
 			pipes[i]=Instantiate (pipePrefab, nextPosition, nextOrientation) as NavigationBehaviour;

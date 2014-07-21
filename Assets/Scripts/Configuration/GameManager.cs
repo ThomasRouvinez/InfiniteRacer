@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour {
 	private bool rewardOn = false;
 
 	private LTRect reward;
+	private LTRect rewardLogo;
+	public GUISkin skinReward;
 
 	/*
 	 * Author : Arnaud Durand
@@ -36,8 +38,7 @@ public class GameManager : MonoBehaviour {
 			icons = items.Select(p => p.icon).ToArray();
 		}
 
-		public void Push(Powerup item)
-		{
+		public void Push(Powerup item){
 			if (items.Count < size){
 				Debug.Log(item);
 				items.Add(item);
@@ -45,8 +46,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		public void Pop(int itemAtPosition)
-		{
+		public void Pop(int itemAtPosition){
 			items[itemAtPosition].Trigger();
 			items.RemoveAt(itemAtPosition);
 			BufferIcons();
@@ -67,7 +67,8 @@ public class GameManager : MonoBehaviour {
 		width = Screen.width;
 		height = Screen.height;
 
-		reward = new LTRect((width * 0.25f), (height * 0.1f), (width * 0.5f), (height * 0.2f));
+		reward = new LTRect((width * 0.1f), (height * 0.15f), (width * 0.8f), (height * 0.3f));
+		rewardLogo = new LTRect((width * 0.3f), (height * 0.08f), (width * 0.4f), (height * 0.2f));
 		reward.color.a = 0f;
 
 		// Reload the settings.
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour {
 
 		StartCoroutine(checkDistance());
 	}
-
+	
 	void OnGUI(){
 		if (!GameConfiguration.Instance.ended){
 			GUI.skin = powerupSkins;
@@ -101,8 +102,11 @@ public class GameManager : MonoBehaviour {
 			}				
 		}
 
+		// To display the Rewards if needed.
 		if(rewardOn == true){
-			GUI.Box(reward.rect, "" + GameConfiguration.Instance.thresholdValues[GameConfiguration.Instance.thresholdIndex -1]);
+			GUI.skin = skinReward;
+			GUI.Box(rewardLogo.rect, "");
+			GUI.Label(reward.rect, "<size=" + (reward.rect.width * 0.08f) + ">" + GameConfiguration.Instance.thresholdValues[GameConfiguration.Instance.thresholdIndex -1] + "</size>");
 		}
 	}
 
