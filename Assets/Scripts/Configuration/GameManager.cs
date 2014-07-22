@@ -67,8 +67,8 @@ public class GameManager : MonoBehaviour {
 		width = Screen.width;
 		height = Screen.height;
 
-		reward = new LTRect((width * 0.1f), (height * 0.15f), (width * 0.8f), (height * 0.3f));
-		rewardLogo = new LTRect((width * 0.3f), (height * 0.08f), (width * 0.4f), (height * 0.2f));
+		reward = new LTRect((width * 0.1f), (height * 0.07f), (width * 0.8f), (height * 0.3f));
+		rewardLogo = new LTRect((width * 0.3f), 0, (width * 0.4f), (height * 0.2f));
 		reward.color.a = 0f;
 
 		// Reload the settings.

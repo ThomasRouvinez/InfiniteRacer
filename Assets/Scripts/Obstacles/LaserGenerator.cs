@@ -10,7 +10,6 @@ public class LaserGenerator : MonoBehaviour {
 
 	void Start () {
 		lineRenderer= GetComponent<LineRenderer>();
-
 		transform.Rotate(Vector3.forward, Random.Range(0,360));
 	}
 
@@ -19,8 +18,7 @@ public class LaserGenerator : MonoBehaviour {
 
 		lineRenderer.SetPosition(0,source.position);
 		
-		for(int i=1;i<4;i++)
-		{
+		for(int i = 1 ; i < 4 ; i++){
 			Vector3 pos = Vector3.Lerp(source.position,target.position,i/4.0f);
 
 			pos.x += Random.Range(-5.0f,5.0f);
