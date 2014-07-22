@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour {
 			StartCoroutine(fadeOut(1.5f, reward));
 		}
 
-		yield return new WaitForSeconds(.5f);
+		yield return new WaitForSeconds(1f);
 	}
 
 	// Reward disappearence function.

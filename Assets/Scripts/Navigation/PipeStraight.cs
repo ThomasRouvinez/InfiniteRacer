@@ -8,13 +8,14 @@ public class PipeStraight : PipeBehaviour {
 	// -------------------------------------------------------------------------------------
 	
 	private float minPosition = 0.1f;
-	private float currentPosition;
 	private int density = 0;					// Current density level.
 	private int densityMax = 0;					// Maximum density of obstacles allowed.
 	private int unlocks = 0;					// Determines which obstacles are unlocked.
 	private int random;
 	private float tempPosition = 0f;
 	private float tempRotation = 0f;
+	private int lastObstacle;
+	private float lastRotation;
 
 	public GameObject obsPC1;
 	public GameObject obsPC2;
@@ -31,7 +32,6 @@ public class PipeStraight : PipeBehaviour {
 
 	public void Awake(){
 		curved = false;
-		currentPosition = minPosition;
 
 		obstacles = new GameObject[4];
 		densities = new int[4];
@@ -56,21 +56,34 @@ public class PipeStraight : PipeBehaviour {
 		// Determine which obstacles are unlocked (based on distance travelled, progressively introduces obstacles).
 		unlocks = GameConfiguration.Instance.thresholdIndex > 2 ? 3 : GameConfiguration.Instance.thresholdIndex;
 
-		// Spawn the obstacles.
-		while(density < densityMax && minPosition < 1f){
-			yield return new WaitForSeconds(.2f);
+		// Spawn strategy.
+		while(density < densityMax && minPosition < 0.9f){
+
+			// Select obstacle and position.
 			random = (int) (Random.Range(0f, (float) unlocks +1));
 			tempPosition = Random.Range(minPosition, minPosition + 0.2f);
-			tempRotation = (Random.Range(0, 12) * 30) + 15;
-			
+
+			// Check if intelligent rotation is required.
+			if(random == lastObstacle){
+				tempRotation = lastRotation - 45;
+			}
+			else{
+				tempRotation = (Random.Range(0, 12) * 30) + 15;
+			}
+		
+			yield return new WaitForSeconds(.1f);
+
+			// Spawn obstacle.
 			StartCoroutine(spawnObstacle(obstacles[random].transform, this.transform, tempPosition, new Vector3(0f, 0f, tempRotation)));
+
+			// Update strategy factors.
+			lastObstacle = random;
+			lastRotation = tempRotation;
 			density += densities[random];
 			minPosition += sizes[random];
+
+			yield return new WaitForSeconds(.1f);
 		}
-
-		yield return new WaitForSeconds(.2f);
-
-		// Fill randomly the available density left.
 
 		yield return null;
 	}
