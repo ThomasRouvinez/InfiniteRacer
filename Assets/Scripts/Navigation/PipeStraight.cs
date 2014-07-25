@@ -37,10 +37,10 @@ public class PipeStraight : PipeBehaviour {
 		densities = new int[4];
 		sizes = new float[4];
 
-		obstacles[0] = obsPC1;		densities[0] = 50;		sizes[0] = 0.2f;
+		obstacles[0] = obsPC1;		densities[0] = 50;		sizes[0] = 0.25f;
 		obstacles[1] = obsPC2;		densities[1] = 75;		sizes[1] = 0.25f;
 		obstacles[2] = obsPC3;		densities[2] = 90;		sizes[2] = 0.35f;
-		obstacles[3] = obsPC4;		densities[3] = 90;		sizes[3] = 0.5f;
+		obstacles[3] = obsPC4;		densities[3] = 100;		sizes[3] = 0.5f;
 
 		StartCoroutine(spawn());
 	}

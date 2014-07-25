@@ -37,7 +37,7 @@ public class NavigationController : MonoBehaviour {
 		NavigationBehaviour pipePrefab = startPipePrefab;
 		
 		for(int i = 0 ; i < pipes.Length; i++){
-			pipes[i]=Instantiate (pipePrefab, nextPosition, nextOrientation) as NavigationBehaviour;
+			pipes[i] = Instantiate(pipePrefab, nextPosition, nextOrientation) as NavigationBehaviour;
 
 			pipes[i].transform.parent=transform;
 
@@ -57,7 +57,7 @@ public class NavigationController : MonoBehaviour {
 		splinePosition += (GameConfiguration.Instance.speed * Time.deltaTime) / spline.Length;
 
 		if(splinePosition > 1f)/*Change current tube*/{
-			GameConfiguration.Instance.distance += pipes[pipeIdx].length;
+			GameConfiguration.Instance.distance += pipes[pipeIdx].length;	// For rewards.
 			float exceedingDistance = (splinePosition % 1) * spline.Length;
 			Vector3 sOffset = -spline.GetPositionOnSpline(1f);
 			
@@ -92,15 +92,17 @@ public class NavigationController : MonoBehaviour {
 	// --------------------------------------------------------------------------------------
 
 	void RespawnBlocks(){
+		bool wasOpened = pipes[pipeIdx].opened;
 		Destroy(pipes[pipeIdx].gameObject);
-		
+
 		int prvIdx = (pipeIdx + pipes.Length-1) % pipes.Length;
-		Spline previousSpline=pipes[prvIdx].GetComponent<Spline>();
-		
+		Spline previousSpline = pipes[prvIdx].GetComponent<Spline>();
+
 		pipes[pipeIdx] = Instantiate(pipePrefabs[UnityEngine.Random.Range(0,pipePrefabs.Length)], previousSpline.GetPositionOnSpline(1f), previousSpline.GetOrientationOnSpline(1f)) as NavigationBehaviour;
 		pipes[pipeIdx].transform.parent = transform;
-		
-		pipes[pipeIdx].torque = GenerateTorque();
+
+		// Avoid pipes from going opposite directions.
+		pipes[pipeIdx].torque = Mathf.Clamp(GenerateTorque(), previousSpline.GetOrientationOnSpline(1f).z -90, previousSpline.GetOrientationOnSpline(1f).z +90);
 		
 		pipes[pipeIdx].transform.Rotate(new Vector3(0,0,pipes[pipeIdx].torque), Space.Self);
 		pipeIdx = (pipeIdx +1) % pipes.Length;

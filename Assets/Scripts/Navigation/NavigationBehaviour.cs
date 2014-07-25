@@ -13,7 +13,8 @@ public class NavigationBehaviour : MonoBehaviour {
 	// --------------------------------------------------------------------------------------
 
 	public float torque = 0f;
-	public bool curved = true;
+	public bool curved;
+	public bool opened;
 	public int length;
 
 	// --------------------------------------------------------------------------------------
