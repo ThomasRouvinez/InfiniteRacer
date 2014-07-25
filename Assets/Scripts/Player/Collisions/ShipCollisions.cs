@@ -20,11 +20,7 @@ public class ShipCollisions : MonoBehaviour {
 	public GameObject sparksRight;
 	public AudioSource coinNoise;
 	public AudioSource music;
-
-	public Animation deathLeft;
-
-	private ParticleEmitter leftSparks;
-	private ParticleEmitter rightSparks;
+	public AudioSource explosion;
 
 	// Scripts references.
 	//public GameObject navigation;
@@ -41,14 +37,9 @@ public class ShipCollisions : MonoBehaviour {
 	// Start.
 	// ------------------------------------------------------------------------
 
-	void Start () 
-	{
+	void Start () {
 		//hud = camera.GetComponent<HUD>();
 		player = ship.GetComponent<PlayerBehaviour>();
-
-		// Get particle systems.
-		leftSparks = sparksLeft.GetComponent<ParticleEmitter>();
-		rightSparks = sparksRight.GetComponent<ParticleEmitter>();
 	}
 
 	// ------------------------------------------------------------------------
@@ -56,11 +47,9 @@ public class ShipCollisions : MonoBehaviour {
 	// ------------------------------------------------------------------------
 
 	// Ship collisions detection.
-	void OnTriggerEnter(Collider collision)
-	{
+	void OnTriggerEnter(Collider collision){
 		// Coins detection.
-		if(collision.gameObject.tag == "Coin")
-		{
+		if(collision.gameObject.tag == "Coin"){
 			Destroy(collision.gameObject);
 
 			coinNoise.audio.Play();
@@ -70,8 +59,7 @@ public class ShipCollisions : MonoBehaviour {
 		}
 
 		// Coins' pack detection.
-		else if(collision.gameObject.tag == "CoinPack")
-		{
+		else if(collision.gameObject.tag == "CoinPack"){
 			Destroy(collision.gameObject);
 			
 			coinNoise.audio.Play();
@@ -81,8 +69,7 @@ public class ShipCollisions : MonoBehaviour {
 		}
 
 		// Falling from half pipes detection.
-		else if(collision.gameObject.name == "ColliderHalfPipe" && GameConfiguration.Instance.isShieldEnabled == false)
-		{
+		else if(collision.gameObject.name == "ColliderHalfPipe" && GameConfiguration.Instance.isShieldEnabled == false){
 			collision.enabled = false;
 			/*foreach(Collider collider in GetComponents<Collider>())
 				Destroy(collider);*/
@@ -97,8 +84,7 @@ public class ShipCollisions : MonoBehaviour {
 			StartCoroutine(WaitAndFall(0.3f));
 		}
 
-		else if(collision.gameObject.tag == "Powerup")
-		{
+		else if(collision.gameObject.tag == "Powerup"){
 			collision.gameObject.transform.parent = gameObject.transform;
 			collision.gameObject.renderer.enabled = false;
 			collision.enabled=false;
@@ -106,8 +92,7 @@ public class ShipCollisions : MonoBehaviour {
 		}
 
 		// Lost the game.
-		else
-		{
+		else{
 			if(GameConfiguration.Instance.isShieldEnabled == false){
 
 				foreach(Collider collider in GetComponents<Collider>())
@@ -119,6 +104,7 @@ public class ShipCollisions : MonoBehaviour {
 				player.motion = 0f;
 
 				music.audio.Stop();
+				explosion.audio.Play();
 
 				StartCoroutine(WaitAndExplode(0f));
 
@@ -167,22 +153,19 @@ public class ShipCollisions : MonoBehaviour {
 		}
 
 		// Instantiate a detonator game object where the bomb is.
-		Instantiate (smokePrefab, transform.position-transform.forward*5, Quaternion.identity);  
+		//Instantiate (smokePrefab, transform.position-transform.forward*5, Quaternion.identity);  
 
-		// Destroy the bomb (because it exploded lol).
 		yield return new WaitForSeconds(3f);
 
 		Destroy(gameObject);
 	}
 	
 	// Wings collisions detection.
-	public void OnHitLeft()
-	{
+	public void OnHitLeft(){
 
 	}
 
-	public void OnHitRight()
-	{
+	public void OnHitRight(){
 
 	}
 }

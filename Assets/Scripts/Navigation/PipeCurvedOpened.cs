@@ -36,9 +36,9 @@ public class PipeCurvedOpened : PipeBehaviour {
 		densities = new int[3];
 		sizes = new float[3];
 		
-		obstacles[0] = obsPC2;		densities[0] = 50;		sizes[0] = 0.25f;
-		obstacles[1] = obsPC5;		densities[1] = 90;		sizes[1] = 0.5f;
-		obstacles[2] = obsPC6;		densities[2] = 90;		sizes[2] = 0.5f;
+		obstacles[0] = obsPC2;		densities[0] = 50;		sizes[0] = 0.2f;
+		obstacles[1] = obsPC5;		densities[1] = 90;		sizes[1] = 0.4f;
+		obstacles[2] = obsPC6;		densities[2] = 90;		sizes[2] = 0.4f;
 
 		StartCoroutine(spawn());
 	}
