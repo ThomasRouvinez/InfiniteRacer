@@ -92,7 +92,7 @@ public class ShipAnimator : MonoBehaviour {
 			wingRight.transform.localEulerAngles = rotWingRight;
 
 			// Adapt engine pitch.
-			engineSource.pitch = Mathf.Lerp(engineSource.pitch, 1.8f, engineRate * Time.deltaTime);
+			engineSource.pitch = Mathf.Lerp(engineSource.pitch, 1.2f, engineRate * Time.deltaTime);
 		}
 		else if (playerScript.InputEnabled() == true && (Input.GetKey("right") || (Input.GetMouseButton(0) && Input.mousePosition.x > Screen.width/2)))
 		{
@@ -105,7 +105,7 @@ public class ShipAnimator : MonoBehaviour {
 			wingRight.transform.localEulerAngles = rotWingRight;
 
 			// Adapt engine pitch.
-			engineSource.pitch = Mathf.Lerp(engineSource.pitch, 1.8f, engineRate * Time.deltaTime);
+			engineSource.pitch = Mathf.Lerp(engineSource.pitch, 1.2f, engineRate * Time.deltaTime);
 		}
 		else
 		{
