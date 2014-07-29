@@ -57,7 +57,7 @@ public class PipeStraight : PipeBehaviour {
 		unlocks = GameConfiguration.Instance.thresholdIndex > 2 ? 3 : GameConfiguration.Instance.thresholdIndex;
 
 		// Spawn strategy.
-		while(density < densityMax && minPosition < 0.9f){
+		while(density < densityMax && minPosition < 0.8f){
 			yield return new WaitForSeconds(.5f);
 
 			// Select obstacle and position.
