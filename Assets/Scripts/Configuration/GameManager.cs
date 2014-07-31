@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour {
 	private LTRect rewardLogo;
 	public GUISkin skinReward;
 
+	public AudioSource audioReward;
+
 	/*
 	 * Author : Arnaud Durand
 	 * Description : handle powerup stacking and triggering.
@@ -144,6 +146,7 @@ public class GameManager : MonoBehaviour {
 			rewardOn = true;
 			reward.color.a = 1f;
 			++GameConfiguration.Instance.thresholdIndex;
+			audioReward.Play ();
 			StartCoroutine(fadeOut(1.5f, reward));
 		}
 

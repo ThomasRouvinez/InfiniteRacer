@@ -80,10 +80,10 @@ public class NavigationController : MonoBehaviour {
 
 		// FOV modification depending on the type of tubes.
 		if(pipes[pipeIdx].curved == true){
-			camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 87f, 0.01f);
+			camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 90f, 0.01f);
 		}
 		else{
-			camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 76f, 0.01f);
+			camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 80f, 0.01f);
 		}
 	}
 

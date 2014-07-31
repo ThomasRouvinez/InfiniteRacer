@@ -15,6 +15,7 @@ public class ShipAnimator : MonoBehaviour {
 	// --------------------------------------------------------------
 	
 	// Game Objects.
+	public GameObject cog;
 	public GameObject propellerLeft;
 	public GameObject propellerRight;
 	public GameObject wingLeft;
@@ -27,7 +28,10 @@ public class ShipAnimator : MonoBehaviour {
 	private Vector3 posRight0;
 	private Vector3 rotWingLeft;
 	private Vector3 rotWingRight;
-	private float engineRate = 3.25f;
+	private float engineRate = 3f;
+
+	private float wingDeltaAngle = 20.0f;	//Max and min angle between rotation of the wings during lateral movements
+	private float speedDeltaAngle = 2.5f;	//Speed rotation of the wings during lateral movements.
 
 	// Scripts.
 	private PlayerBehaviour playerScript;
@@ -37,42 +41,31 @@ public class ShipAnimator : MonoBehaviour {
 	// --------------------------------------------------------------
 	
 	// Use this for initialization
-	void Start ()
-	{		
+	void Start (){		
 		rotLeft0 = wingLeft.transform.localRotation;
 		posLeft0 = wingLeft.transform.localPosition;
 		rotRight0 = wingRight.transform.localRotation;
 		posRight0 = wingRight.transform.localPosition;
-
+	
 		// Scripts.
 		playerScript = GetComponent<PlayerBehaviour> ();
 	}
 	
 	// Update is called once per frame.
-	void Update ()
-	{
-		rotatePropellers(); 	// Rotate the propellers.
-		moveWings();			// Move the wings
+	void Update (){
+		propellerLeft.transform.Rotate(Vector3.up, Time.deltaTime * 100000);
+		propellerRight.transform.Rotate(Vector3.up, Time.deltaTime * 100000);
+
+		// Move the wings
+		moveWings();
 	}
 	
 	// --------------------------------------------------------------
 	// Ship animations.
 	// --------------------------------------------------------------
 	
-	// Rotate the propellers.
-	void rotatePropellers()
-	{
-		propellerLeft.transform.Rotate(Vector3.up, Time.deltaTime * 100000);
-		propellerRight.transform.Rotate(Vector3.up, Time.deltaTime * 100000);
-	}
-	
 	//Moves the wings when right/left keys are pressed.
-	void moveWings()
-	{
-		//Max and min angle between rotation of the wings during lateral movements
-		float wingDeltaAngle = 20.0f;
-		//Speed rotation of the wings during lateral movements.
-		float speedDeltaAngle = 2.5f;
+	void moveWings(){
 		
 		//Setting x and y Euler angle during lateral movements.
 		rotWingLeft.x = 0f;
@@ -81,11 +74,10 @@ public class ShipAnimator : MonoBehaviour {
 		rotWingRight.y = 0f;
 		
 		//If statement of the lateral movement.
-		if (playerScript.InputEnabled() == true && (Input.GetKey("left") || (Input.GetMouseButton(0) && Input.mousePosition.x < Screen.width/2)))
-		{
+		if (playerScript.InputEnabled() == true && (Input.GetKey("left") || (Input.GetMouseButton(0) && Input.mousePosition.x < Screen.width/2))){
 			//Rotate wings for left lateral movement.
-			rotWingLeft.z +=  speedDeltaAngle;
-			rotWingRight.z +=  speedDeltaAngle;
+			rotWingLeft.z += speedDeltaAngle;
+			rotWingRight.z += speedDeltaAngle;
 			rotWingLeft.z = Mathf.Clamp(rotWingLeft.z, -wingDeltaAngle, wingDeltaAngle);
 			rotWingRight.z = Mathf.Clamp(rotWingRight.z, 270f - wingDeltaAngle, 270f + wingDeltaAngle);
 			wingLeft.transform.localEulerAngles = rotWingLeft;
@@ -94,8 +86,7 @@ public class ShipAnimator : MonoBehaviour {
 			// Adapt engine pitch.
 			engineSource.pitch = Mathf.Lerp(engineSource.pitch, 1.2f, engineRate * Time.deltaTime);
 		}
-		else if (playerScript.InputEnabled() == true && (Input.GetKey("right") || (Input.GetMouseButton(0) && Input.mousePosition.x > Screen.width/2)))
-		{
+		else if (playerScript.InputEnabled() == true && (Input.GetKey("right") || (Input.GetMouseButton(0) && Input.mousePosition.x > Screen.width/2))){
 			//Rotate wings for right lateral movement.
 			rotWingLeft.z -= speedDeltaAngle;
 			rotWingRight.z -= speedDeltaAngle;
@@ -107,8 +98,7 @@ public class ShipAnimator : MonoBehaviour {
 			// Adapt engine pitch.
 			engineSource.pitch = Mathf.Lerp(engineSource.pitch, 1.2f, engineRate * Time.deltaTime);
 		}
-		else
-		{
+		else{
 			//Rotate back to initial rotation state (also for position).
 			wingRight.transform.localRotation = Quaternion.Slerp(wingRight.transform.localRotation, rotRight0, Time.deltaTime * 4);
 			wingRight.transform.localPosition = Vector3.Lerp(wingRight.transform.localPosition, posRight0, Time.deltaTime * 4);
@@ -118,6 +108,8 @@ public class ShipAnimator : MonoBehaviour {
 			
 			rotWingLeft.z =  0f;
 			rotWingRight.z = 270f;
+
+			cog.transform.Rotate(new Vector3(0f, 0f ,0f));
 
 			// Revert engine audio to normal pitch.
 			engineSource.pitch = Mathf.Lerp(engineSource.pitch, 1f, engineRate * Time.deltaTime);
