@@ -28,10 +28,9 @@ public class HUD : MonoBehaviour {
 	// Update fields in the HUD
 	void Update () {
 		// As long as we are not dead.
-		if(!GameConfiguration.Instance.ended)
-		{
+		if(!GameConfiguration.Instance.ended){
 			// Update the fields.
-			coinNumber.text = GameConfiguration.Instance.coins.ToString() ;
+			coinNumber.text = GameConfiguration.Instance.energy.ToString("0.00") ;
 
 			speed.text = ((short) (GameConfiguration.Instance.speed)).ToString() ;
 

@@ -23,8 +23,7 @@ public class CameraIntro : MonoBehaviour {
 	// Start.
 	// -------------------------------------------------------------
 
-	void Start()
-	{
+	void Start(){
 		animation = camera.GetComponent<Animator> ();
 		playerScript = ship.GetComponent<PlayerBehaviour> ();
 	}
@@ -33,10 +32,10 @@ public class CameraIntro : MonoBehaviour {
 	// Disable intro cutscene.
 	// -------------------------------------------------------------
 
-	void disableAnimation()
-	{
+	void disableAnimation(){
 		// Game is starting.
 		animation.enabled = false;
 		playerScript.InputEnabled(true);
+		GameConfiguration.Instance.energy = 100f;
 	}
 }

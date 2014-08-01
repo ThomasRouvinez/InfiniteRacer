@@ -36,6 +36,8 @@ public class GameConfiguration {
 	// -------------------------------------------------------------------------------------
 
 	public float speed;
+	public float energy = 100f;
+	public float energyMax = 100f;
 	public float startSpeed = 120f;
 	public float maxSpeed = 300f;
 
@@ -45,7 +47,7 @@ public class GameConfiguration {
 	public bool ended = false;
 
 	public int coins = 0;
-	public long score = 0;
+	public float score = 0f;
 
 	// Reward system.
 	public long distance = 0;

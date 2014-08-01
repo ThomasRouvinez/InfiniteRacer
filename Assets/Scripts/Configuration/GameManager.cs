@@ -89,6 +89,14 @@ public class GameManager : MonoBehaviour {
 		}
 
 		StartCoroutine(checkDistance());
+
+		if(GameConfiguration.Instance.paused == false){
+			GameConfiguration.Instance.energy -= Time.deltaTime * 1f;
+		}
+
+		if(GameConfiguration.Instance.energy < 0f){
+			GameConfiguration.Instance.ended = true;
+		}
 	}
 	
 	void OnGUI(){
@@ -117,7 +125,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void ResetConfiguration () {
-		GameConfiguration.Instance.speed = 120;
+		GameConfiguration.Instance.energy = 100f;
+		GameConfiguration.Instance.speed = 120f;
 		GameConfiguration.Instance.coins = 0;
 		GameConfiguration.Instance.score = 0;
 		GameConfiguration.Instance.distance = 0;

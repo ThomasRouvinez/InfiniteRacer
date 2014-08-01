@@ -38,7 +38,6 @@ public class ShipCollisions : MonoBehaviour {
 	// ------------------------------------------------------------------------
 
 	void Start () {
-		//hud = camera.GetComponent<HUD>();
 		player = ship.GetComponent<PlayerBehaviour>();
 	}
 
@@ -49,33 +48,17 @@ public class ShipCollisions : MonoBehaviour {
 	// Ship collisions detection.
 	void OnTriggerEnter(Collider collision){
 		// Coins detection.
-		if(collision.gameObject.tag == "Coin"){
-			Destroy(collision.gameObject);
-
-			coinNoise.audio.Play();
-
-			GameConfiguration.Instance.coins++;
-			GameConfiguration.Instance.score += 5;
-		}
-
-		// Coins' pack detection.
-		else if(collision.gameObject.tag == "CoinPack"){
-			Destroy(collision.gameObject);
-			
-			coinNoise.audio.Play();
-			
-			GameConfiguration.Instance.coins += 25;
-			GameConfiguration.Instance.score += 250;
+		if(collision.gameObject.tag == "Recharge"){
+			GameConfiguration.Instance.energy = Mathf.Clamp((GameConfiguration.Instance.energy + (Time.deltaTime * 14f)), 0f, 100f);
+			GameConfiguration.Instance.score += Time.deltaTime * 10f;
 		}
 
 		// Falling from half pipes detection.
 		else if(collision.gameObject.name == "ColliderHalfPipe" && GameConfiguration.Instance.isShieldEnabled == false){
 			collision.enabled = false;
-			/*foreach(Collider collider in GetComponents<Collider>())
-				Destroy(collider);*/
 			player.enabled=false;
 
-			GameConfiguration.Instance.speed=0;
+			GameConfiguration.Instance.speed = 0;
 			Rigidbody rigidBody=GetComponent<Rigidbody>();
 
 			rigidbody.isKinematic=false;
@@ -158,14 +141,5 @@ public class ShipCollisions : MonoBehaviour {
 		yield return new WaitForSeconds(3f);
 
 		Destroy(gameObject);
-	}
-	
-	// Wings collisions detection.
-	public void OnHitLeft(){
-
-	}
-
-	public void OnHitRight(){
-
 	}
 }

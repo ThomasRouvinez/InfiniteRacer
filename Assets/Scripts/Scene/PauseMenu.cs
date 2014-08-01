@@ -15,6 +15,9 @@ public class PauseMenu : MonoBehaviour {
 	public GUISkin pauseBackground;
 	public GUISkin pauseResume;
 	public GUISkin pauseMainMenu;
+
+	public AudioSource engine;
+
 	private int width;
 	private int height;
 	
@@ -22,24 +25,22 @@ public class PauseMenu : MonoBehaviour {
 	// Game loop.
 	// -------------------------------------------------------------------------------------
 
-	void Start()
-	{
+	void Start(){
 		width = (Screen.width / 6) * 4;
 		height = (Screen.height / 2);
 		GameConfiguration.Instance.paused = false;
 	}
 	
-	void Update () 
-	{
-		if(Input.GetKeyDown(KeyCode.Escape) && GameConfiguration.Instance.paused == false)
-		{
+	void Update () {
+		if(Input.GetKeyDown(KeyCode.Escape) && GameConfiguration.Instance.paused == false){
 			GameConfiguration.Instance.paused = true;
+			engine.Stop();
 			Time.timeScale = 0;
 		}
 		
-		else if(Input.GetKeyDown(KeyCode.Escape) && GameConfiguration.Instance.paused == true)
-		{
+		else if(Input.GetKeyDown(KeyCode.Escape) && GameConfiguration.Instance.paused == true){
 			GameConfiguration.Instance.paused = false;
+			engine.Play();
 			Time.timeScale = 1;
 		}
 	}
@@ -48,10 +49,8 @@ public class PauseMenu : MonoBehaviour {
 	// GUI.
 	// -------------------------------------------------------------------------------------
 
-	void OnGUI () 
-	{
-		if(GameConfiguration.Instance.paused)
-		{
+	void OnGUI () {
+		if(GameConfiguration.Instance.paused){
 			// Put background image.
 			GUI.skin = pauseBackground;
 			GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
