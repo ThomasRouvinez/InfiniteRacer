@@ -50,7 +50,7 @@ public class ShipCollisions : MonoBehaviour {
 		// Coins detection.
 		if(collision.gameObject.tag == "Recharge"){
 			GameConfiguration.Instance.energy = Mathf.Clamp((GameConfiguration.Instance.energy + (Time.deltaTime * 14f)), 0f, 100f);
-			GameConfiguration.Instance.score += Time.deltaTime * 10f;
+			GameConfiguration.Instance.score += Time.deltaTime * 20f;
 		}
 
 		// Falling from half pipes detection.

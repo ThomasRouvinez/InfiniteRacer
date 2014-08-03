@@ -59,9 +59,6 @@ public class PlayerBehaviour : MonoBehaviour {
 
 	//public static float horizontalSpeed=200f;
 	void Start () {
-		//transform.position=new Vector3(0,-radius,depth);
-		//Camera.main.transform.position=Vector3.down*cameraRadius;
-
 		maxSpeed = 0.9f;
 	}
 
@@ -69,8 +66,8 @@ public class PlayerBehaviour : MonoBehaviour {
 		// Reactivity adaptation.
 		relativeVelocity = ((GameConfiguration.Instance.speed - GameConfiguration.Instance.startSpeed) / 150);
 		
-		acceleration = 1.9f + relativeVelocity;
-		deceleration = 0.9f + relativeVelocity;
+		acceleration = 1.6f + relativeVelocity;	// 1.9f
+		deceleration = 1.2f + relativeVelocity;	// 0.9f
 	}
 
 	// Rotate arround.
