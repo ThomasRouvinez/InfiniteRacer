@@ -67,7 +67,7 @@ public class ShipCollisions : MonoBehaviour {
 			StartCoroutine(WaitAndFall(0.3f));
 		}
 
-		else if(collision.gameObject.tag == "Powerup"){
+		/*else if(collision.gameObject.tag == "Powerup"){
 			collision.gameObject.transform.parent = gameObject.transform;
 			collision.gameObject.renderer.enabled = false;
 			collision.enabled=false;
@@ -93,7 +93,7 @@ public class ShipCollisions : MonoBehaviour {
 
 				GameConfiguration.Instance.ended = true;
 			}
-		}  
+		} */ 
 	}
 
 	IEnumerator WaitAndFall(float waitTime) {
