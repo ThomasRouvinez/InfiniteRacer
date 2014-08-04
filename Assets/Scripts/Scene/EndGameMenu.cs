@@ -27,9 +27,15 @@ public class EndGameMenu : MonoBehaviour {
 	private bool invoked = false;
 	private bool guiEnabled = false;
 
+	private string[] causeOfDeath;
+
 	// ------------------------------------------------------------------
 	// Game loop.
 	// ------------------------------------------------------------------
+
+	void Start(){
+		causeOfDeath = new string[]{"ENERGY DEPLETED!", "FELL THROUGH !", "CRASHED !"};
+	}
 
 	void Update (){
 		if(GameConfiguration.Instance.ended && invoked == false){
@@ -55,7 +61,9 @@ public class EndGameMenu : MonoBehaviour {
 			// Put background image and title.
 			GUI.skin = skinBackground;
 			GUI.Box(new Rect(0, 0, width, height), "");
-			GUI.Label(new Rect((width * 0.1f),(height * 0.05f),(width * 0.8f),(height * 0.25f)), "<size=" + (width * 0.07f) + ">GAME OVER</size>");
+
+			// Display cause of death.
+			GUI.Label(new Rect((width * 0.1f),(height * 0.05f),(width * 0.8f),(height * 0.25f)), "<size=" + (width * 0.06f) + ">" + causeOfDeath[GameConfiguration.Instance.causeOfDeath] + "</size>");
 
 			// Score display.
 			GUI.Label(new Rect((width * 0.2f),(height * 0.35f),(width * 0.6f),(height * 0.15f)), "<size=" + (width * 0.03f) + ">SCORED : " + GameConfiguration.Instance.score.ToString() + "</size>");
@@ -65,19 +73,24 @@ public class EndGameMenu : MonoBehaviour {
 
 			if(sent == false){
 				// Submit button.
-				if(GUI.Button(new Rect((width * 0.65f),(height * 0.45f),(width * 0.15f),(height * 0.15f)), "<size=" + (width * 0.02f) + ">SEND</size>")){
-					// Send highscore.
-					HighscoreSaver.postScore(playerName.ToUpper(), GameConfiguration.Instance.score.ToString(), this);
-					sent = true;
+				if(GameConfiguration.Instance.score > PlayerPrefs.GetFloat("highscore", 0f)){
+					if(GUI.Button(new Rect((width * 0.65f),(height * 0.45f),(width * 0.15f),(height * 0.15f)), "<size=" + (width * 0.02f) + ">SEND</size>")){
+						// Send highscore.
+						HighscoreSaver.postScore(playerName.ToUpper(), GameConfiguration.Instance.score.ToString(), this);
+						sent = true;
 
-					// Write best score internally.
-					if((long) (PlayerPrefs.GetFloat("highscore", 0f)) < GameConfiguration.Instance.score){
-						PlayerPrefs.SetFloat("highscore", (float) GameConfiguration.Instance.score);
+						// Write best score internally.
+						if((long) (PlayerPrefs.GetFloat("highscore", 0f)) < GameConfiguration.Instance.score){
+							PlayerPrefs.SetFloat("highscore", (float) GameConfiguration.Instance.score);
+						}
 					}
-				}
 
-				// Name textfield.
-				playerName = GUI.TextField(new Rect((width * 0.25f),(height * 0.45f),(width * 0.4f),(height * 0.15f)), playerName, 20);
+					// Name textfield.
+					playerName = GUI.TextField(new Rect((width * 0.25f),(height * 0.45f),(width * 0.4f),(height * 0.15f)), playerName, 20);
+				}
+				else{
+					GUI.Label(new Rect((width * 0.25f),(height * 0.45f),(width * 0.5f),(height * 0.15f)), "<size=" + (width * 0.02f) + ">YOUR BEST: " + PlayerPrefs.GetFloat("highscore", 0f) + "</size>");
+				}
 			}
 			else{
 				GUI.Label(new Rect((width * 0.25f),(height * 0.45f),(width * 0.5f),(height * 0.15f)), "<size=" + (width * 0.02f) + ">HIGHSCORE SUBMITTED</size>");

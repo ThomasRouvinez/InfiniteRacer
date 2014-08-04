@@ -13,13 +13,11 @@ public class LoadingScreen : MonoBehaviour {
 	public Texture loadingTexture;
 	public float loadingState;
 	
-	void Start() 
-	{
+	void Start() {
         Application.LoadLevel(2);
     }
 	
-	void OnGUI () 
-	{
+	void OnGUI () {
 		// Put background image.
 		GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), loadingTexture, ScaleMode.StretchToFill);
 	}

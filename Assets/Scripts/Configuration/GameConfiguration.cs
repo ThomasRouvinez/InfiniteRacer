@@ -1,6 +1,8 @@
 ﻿/*
  * Author: Arnaud Durand
  * Do NOT modify this script without author acknowledgement
+ * 
+ * 	->>> really ? woops ;)
  */
 public class GameConfiguration {
 
@@ -48,6 +50,8 @@ public class GameConfiguration {
 
 	public int coins = 0;
 	public float score = 0f;
+
+	public byte causeOfDeath = 0;
 
 	// Reward system.
 	public long distance = 0;

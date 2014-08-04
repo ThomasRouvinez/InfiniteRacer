@@ -84,18 +84,19 @@ public class GameManager : MonoBehaviour {
 		if(Time.time - timer >= 1f && GameConfiguration.Instance.ended == false){
 			timer = Time.time;
 			GameConfiguration.Instance.score += 1 + (GameConfiguration.Instance.hardcoreMode == true ? 1:0);
-			speedCheck = GameConfiguration.Instance.speed + Mathf.Sqrt(Time.deltaTime)*8;
-			GameConfiguration.Instance.speed = Mathf.Clamp(speedCheck, 90, 300);
+			speedCheck = GameConfiguration.Instance.speed + Mathf.Sqrt(Time.deltaTime) * 9;
+			GameConfiguration.Instance.speed = Mathf.Clamp(speedCheck, 120, 300);
 		}
 
 		StartCoroutine(checkDistance());
 
 		if(GameConfiguration.Instance.paused == false){
-			GameConfiguration.Instance.energy -= Time.deltaTime * 1f;
+			GameConfiguration.Instance.energy -= Time.deltaTime * 1.2f;
 		}
 
 		if(GameConfiguration.Instance.energy < 0f){
 			GameConfiguration.Instance.ended = true;
+			GameConfiguration.Instance.causeOfDeath = 0;
 		}
 	}
 	
@@ -133,6 +134,7 @@ public class GameManager : MonoBehaviour {
 		GameConfiguration.Instance.thresholdIndex = 0;
 		GameConfiguration.Instance.paused = false;
 		GameConfiguration.Instance.ended = false;
+		GameConfiguration.Instance.causeOfDeath = 0;
 	}
 
 	public void Destroy(){

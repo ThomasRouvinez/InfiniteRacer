@@ -92,7 +92,6 @@ public class NavigationController : MonoBehaviour {
 	// --------------------------------------------------------------------------------------
 
 	void RespawnBlocks(){
-		bool wasOpened = pipes[pipeIdx].opened;
 		Destroy(pipes[pipeIdx].gameObject);
 
 		int prvIdx = (pipeIdx + pipes.Length-1) % pipes.Length;

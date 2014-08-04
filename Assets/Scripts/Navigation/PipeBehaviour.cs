@@ -9,7 +9,7 @@ public class PipeBehaviour : NavigationBehaviour {
 
 	// Returns a value between 280 and 100 unity of available density for obstacles in a pipe.
 	public int getDensity(){
-		return (int) (GameConfiguration.Instance.maxSpeed - (GameConfiguration.Instance.speed * 0.6f));
+		return (int) (GameConfiguration.Instance.maxSpeed - (GameConfiguration.Instance.speed * 0.5f));
 	}
 
 	// Generic function to spawn an obstacle (a spawnable).

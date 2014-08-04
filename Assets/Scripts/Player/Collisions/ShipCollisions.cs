@@ -52,6 +52,10 @@ public class ShipCollisions : MonoBehaviour {
 			GameConfiguration.Instance.energy = Mathf.Clamp((GameConfiguration.Instance.energy + (Time.deltaTime * 14f)), 0f, 100f);
 			GameConfiguration.Instance.score += Time.deltaTime * 20f;
 		}
+		
+		else if(collision.gameObject.tag == "SlowDown"){
+			GameConfiguration.Instance.speed = Mathf.Clamp((GameConfiguration.Instance.speed - (Time.deltaTime * 12f)), 100f, 300f);
+		}
 
 		// Falling from half pipes detection.
 		else if(collision.gameObject.name == "ColliderHalfPipe" && GameConfiguration.Instance.isShieldEnabled == false){
@@ -59,7 +63,8 @@ public class ShipCollisions : MonoBehaviour {
 			player.enabled=false;
 
 			GameConfiguration.Instance.speed = 0;
-			Rigidbody rigidBody=GetComponent<Rigidbody>();
+			GameConfiguration.Instance.causeOfDeath = 1;
+			Rigidbody rigidBody = GetComponent<Rigidbody>();
 
 			rigidbody.isKinematic=false;
 			rigidbody.AddForce(transform.localPosition*50000f+transform.forward*20000f*GameConfiguration.Instance.speed);
@@ -82,6 +87,7 @@ public class ShipCollisions : MonoBehaviour {
 					collider.enabled = false;
 
 				GameConfiguration.Instance.speed = 0f;
+				GameConfiguration.Instance.causeOfDeath = 2;
 				// Destroy the ship.
 				player.onCollision = true;
 				player.motion = 0f;
