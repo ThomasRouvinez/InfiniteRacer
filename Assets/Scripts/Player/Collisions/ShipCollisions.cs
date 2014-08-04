@@ -72,7 +72,7 @@ public class ShipCollisions : MonoBehaviour {
 			collision.gameObject.renderer.enabled = false;
 			collision.enabled=false;
 			gameManager.addPowerup((Powerup) collision.GetComponent(typeof(Powerup)));
-		}
+		} */ 
 
 		// Lost the game.
 		else{
@@ -93,7 +93,7 @@ public class ShipCollisions : MonoBehaviour {
 
 				GameConfiguration.Instance.ended = true;
 			}
-		} */ 
+		}
 	}
 
 	IEnumerator WaitAndFall(float waitTime) {
