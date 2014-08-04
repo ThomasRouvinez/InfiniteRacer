@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour {
 		if(Time.time - timer >= 1f && GameConfiguration.Instance.ended == false){
 			timer = Time.time;
 			GameConfiguration.Instance.score += 1 + (GameConfiguration.Instance.hardcoreMode == true ? 1:0);
-			speedCheck = GameConfiguration.Instance.speed + Mathf.Sqrt(Time.deltaTime) * 9;
+			speedCheck = GameConfiguration.Instance.speed + Mathf.Sqrt(Time.deltaTime) * 10;
 			GameConfiguration.Instance.speed = Mathf.Clamp(speedCheck, 120, 300);
 		}
 

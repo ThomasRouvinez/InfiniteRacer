@@ -54,7 +54,10 @@ public class ShipCollisions : MonoBehaviour {
 		}
 		
 		else if(collision.gameObject.tag == "SlowDown"){
-			GameConfiguration.Instance.speed = Mathf.Clamp((GameConfiguration.Instance.speed - (Time.deltaTime * 12f)), 100f, 300f);
+			GameConfiguration.Instance.speed = Mathf.Clamp((GameConfiguration.Instance.speed - (Time.deltaTime * 15f)), 120f, 300f);
+
+			// Reduce the FOV.
+			camera.camera.fieldOfView = Mathf.Clamp((camera.camera.fieldOfView - Time.deltaTime * 30f), 60f, 90f);
 		}
 
 		// Falling from half pipes detection.

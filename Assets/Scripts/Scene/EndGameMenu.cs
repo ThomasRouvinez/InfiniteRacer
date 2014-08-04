@@ -34,7 +34,7 @@ public class EndGameMenu : MonoBehaviour {
 	// ------------------------------------------------------------------
 
 	void Start(){
-		causeOfDeath = new string[]{"ENERGY DEPLETED!", "FELL THROUGH !", "CRASHED !"};
+		causeOfDeath = new string[]{"ENERGY DEPLETED!", "FELL THROUGH!", "CRASHED!"};
 	}
 
 	void Update (){
@@ -63,7 +63,7 @@ public class EndGameMenu : MonoBehaviour {
 			GUI.Box(new Rect(0, 0, width, height), "");
 
 			// Display cause of death.
-			GUI.Label(new Rect((width * 0.1f),(height * 0.05f),(width * 0.8f),(height * 0.25f)), "<size=" + (width * 0.06f) + ">" + causeOfDeath[GameConfiguration.Instance.causeOfDeath] + "</size>");
+			GUI.Label(new Rect(0,(height * 0.05f),(width * 1f),(height * 0.25f)), "<size=" + (width * 0.055f) + ">" + causeOfDeath[GameConfiguration.Instance.causeOfDeath] + "</size>");
 
 			// Score display.
 			GUI.Label(new Rect((width * 0.2f),(height * 0.35f),(width * 0.6f),(height * 0.15f)), "<size=" + (width * 0.03f) + ">SCORED : " + GameConfiguration.Instance.score.ToString() + "</size>");
