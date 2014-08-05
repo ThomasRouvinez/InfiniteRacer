@@ -37,7 +37,7 @@ public class PipeStraight : PipeBehaviour {
 		densities = new int[4];
 		sizes = new float[4];
 
-		obstacles[0] = obsPC1;		densities[0] = 50;		sizes[0] = 0.25f;
+		obstacles[0] = obsPC1;		densities[0] = 35;		sizes[0] = 0.2f;
 		obstacles[1] = obsPC2;		densities[1] = 75;		sizes[1] = 0.25f;
 		obstacles[2] = obsPC3;		densities[2] = 90;		sizes[2] = 0.35f;
 		obstacles[3] = obsPC4;		densities[3] = 100;		sizes[3] = 0.5f;
@@ -58,11 +58,9 @@ public class PipeStraight : PipeBehaviour {
 
 		// Spawn strategy.
 		while(density < densityMax && minPosition < 0.8f){
-			yield return new WaitForSeconds(.5f);
 
 			// Select obstacle and position.
 			random = (int) (Random.Range(0f, (float) unlocks +1));
-			tempPosition = Random.Range(minPosition, minPosition + 0.2f);
 
 			// Check if intelligent rotation is required.
 			if(random == lastObstacle){
@@ -73,7 +71,7 @@ public class PipeStraight : PipeBehaviour {
 			}
 
 			// Spawn obstacle.
-			StartCoroutine(spawnObstacle(obstacles[random].transform, this.transform, tempPosition, new Vector3(0f, 0f, tempRotation)));
+			StartCoroutine(spawnObstacle(obstacles[random].transform, this.transform, minPosition, new Vector3(0f, 0f, tempRotation)));
 
 			// Update strategy factors.
 			lastObstacle = random;

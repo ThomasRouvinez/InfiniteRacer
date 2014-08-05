@@ -7,7 +7,7 @@ public class PipeCurvedOpened : PipeBehaviour {
 	// Variables.
 	// -------------------------------------------------------------------------------------
 
-	private float minPosition = 0.2f;
+	private float minPosition = 0.1f;
 	private int density = 0;					// Current density level.
 	private int densityMax = 0;					// Maximum density of obstacles allowed.
 	private int unlocks = 0;					// Determines which obstacles are unlocked.
@@ -37,7 +37,7 @@ public class PipeCurvedOpened : PipeBehaviour {
 		densities = new int[3];
 		sizes = new float[3];
 		
-		obstacles[0] = obsPC2;		densities[0] = 40;		sizes[0] = 0.2f;
+		obstacles[0] = obsPC2;		densities[0] = 20;		sizes[0] = 0.15f;
 		obstacles[1] = obsPC5;		densities[1] = 70;		sizes[1] = 0.3f;
 		obstacles[2] = obsPC6;		densities[2] = 70;		sizes[2] = 0.3f;
 
@@ -61,7 +61,6 @@ public class PipeCurvedOpened : PipeBehaviour {
 
 			// Select obstacle and position.
 			random = (int) (Random.Range(0f, Mathf.Clamp(unlocks, 0, 3)));
-			tempPosition = Random.Range(minPosition, minPosition + 0.2f);
 
 			if(random == 0){
 				tempRotation = 90;
@@ -71,7 +70,7 @@ public class PipeCurvedOpened : PipeBehaviour {
 			}
 
 			// Spawn obstacle.
-			StartCoroutine(spawnObstacle(obstacles[random].transform, this.transform, tempPosition, new Vector3(0f, 0f, tempRotation)));
+			StartCoroutine(spawnObstacle(obstacles[random].transform, this.transform, minPosition, new Vector3(0f, 0f, tempRotation)));
 			
 			// Update strategy factors.
 			density += densities[random];
