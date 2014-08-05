@@ -35,7 +35,7 @@ public class PipeCurvedClosed : PipeBehaviour {
 		densities = new int[2];
 		sizes = new float[2];
 		
-		obstacles[0] = obsPC2;		densities[0] = 20;		sizes[0] = 0.15f;
+		obstacles[0] = obsPC2;		densities[0] = 20;		sizes[0] = 0.1f;
 		obstacles[1] = obsPC5;		densities[1] = 90;		sizes[1] = 0.3f;
 		
 		StartCoroutine(spawn());
@@ -54,7 +54,7 @@ public class PipeCurvedClosed : PipeBehaviour {
 		unlocks = GameConfiguration.Instance.thresholdIndex > 2 ? 3 : GameConfiguration.Instance.thresholdIndex;
 		
 		// Spawn strategy.
-		while(density < densityMax && minPosition < .8f){	// Synchronize progressive introduction of obstacles.
+		while(density < densityMax && minPosition < .85f){	// Synchronize progressive introduction of obstacles.
 
 			// Select obstacle and position.
 			random = (int) (Random.Range(0f, Mathf.Clamp(unlocks, 0, 2)));

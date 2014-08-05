@@ -37,7 +37,7 @@ public class PipeCurvedOpened : PipeBehaviour {
 		densities = new int[3];
 		sizes = new float[3];
 		
-		obstacles[0] = obsPC2;		densities[0] = 20;		sizes[0] = 0.15f;
+		obstacles[0] = obsPC2;		densities[0] = 10;		sizes[0] = 0.15f;
 		obstacles[1] = obsPC5;		densities[1] = 70;		sizes[1] = 0.3f;
 		obstacles[2] = obsPC6;		densities[2] = 70;		sizes[2] = 0.3f;
 
@@ -64,9 +64,10 @@ public class PipeCurvedOpened : PipeBehaviour {
 
 			if(random == 0){
 				tempRotation = 90;
+				sizes[0] = Random.Range(.1f, .25f);
 			}
 			else{
-				minPosition += .1f;
+				minPosition += 0.1f;
 			}
 
 			// Spawn obstacle.
