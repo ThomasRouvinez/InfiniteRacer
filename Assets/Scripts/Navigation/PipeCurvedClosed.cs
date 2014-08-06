@@ -60,18 +60,7 @@ public class PipeCurvedClosed : PipeBehaviour {
 			random = (int) (Random.Range(0f, Mathf.Clamp(unlocks, 0, 2)));
 
 			if(random == 0){
-				if(random == lastObstacle){
-					tempRotation = lastRotation + 45;
-					
-					lastObstacle = random;
-					lastRotation = tempRotation;
-				}
-				else{
-					tempRotation = (Random.Range(0, 12) * 30) + 15;
-				}
-			}
-
-			if(random == 0){
+				tempRotation = Random.Range(0, 360);
 				minPosition += 0.1f;
 			}
 			
