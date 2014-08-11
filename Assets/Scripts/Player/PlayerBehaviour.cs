@@ -66,8 +66,8 @@ public class PlayerBehaviour : MonoBehaviour {
 		// Reactivity adaptation.
 		relativeVelocity = ((GameConfiguration.Instance.speed - GameConfiguration.Instance.startSpeed) / 150);
 		
-		acceleration = 1.6f + relativeVelocity;	// 1.9f
-		deceleration = 1.3f + relativeVelocity;	// 0.9f
+		acceleration = 1.5f + relativeVelocity;	// 1.9f
+		deceleration = 2.0f + relativeVelocity;	// 0.9f
 	}
 
 	// Rotate arround.

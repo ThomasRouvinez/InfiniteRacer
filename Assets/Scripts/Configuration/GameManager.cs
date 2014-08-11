@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour {
 			timer = Time.time;
 			GameConfiguration.Instance.score += 1 + (GameConfiguration.Instance.hardcoreMode == true ? 1:0);
 			speedCheck = GameConfiguration.Instance.speed + Mathf.Sqrt(Time.deltaTime) * 10;
-			GameConfiguration.Instance.speed = Mathf.Clamp(speedCheck, 120, 300);
+			GameConfiguration.Instance.speed = Mathf.Clamp(speedCheck, 120, 250);
 		}
 
 		StartCoroutine(checkDistance());
