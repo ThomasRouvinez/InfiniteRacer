@@ -59,9 +59,19 @@ public class PipeCurvedClosed : PipeBehaviour {
 			// Select obstacle and position.
 			random = (int) (Random.Range(0f, Mathf.Clamp(unlocks, 0, 2)));
 
-			if(random == 0){
+			switch (random){
+			case 0:
 				tempRotation = Random.Range(0, 360);
 				minPosition += 0.1f;
+				break;
+				
+			case 1:
+				minPosition += .05f;
+				break;
+				
+			default:
+				minPosition += .1f;
+				break;
 			}
 			
 			// Spawn obstacle.
