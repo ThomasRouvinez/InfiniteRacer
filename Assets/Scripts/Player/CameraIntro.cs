@@ -14,7 +14,9 @@ public class CameraIntro : MonoBehaviour {
 	// -------------------------------------------------------------
 
 	public Camera camera;
+	public Camera hudCamera;
 	public GameObject ship;
+	public GameObject MusicManager;
 
 	private Animator animation;
 	private PlayerBehaviour playerScript;
@@ -37,5 +39,6 @@ public class CameraIntro : MonoBehaviour {
 		animation.enabled = false;
 		playerScript.InputEnabled(true);
 		GameConfiguration.Instance.energy = 100f;
+		hudCamera.enabled = true;
 	}
 }

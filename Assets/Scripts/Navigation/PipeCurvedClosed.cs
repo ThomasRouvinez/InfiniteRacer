@@ -51,7 +51,7 @@ public class PipeCurvedClosed : PipeBehaviour {
 		densityMax = getDensity();
 		
 		// Determine which obstacles are unlocked (based on distance travelled, progressively introduces obstacles).
-		unlocks = GameConfiguration.Instance.thresholdIndex > 2 ? 3 : GameConfiguration.Instance.thresholdIndex;
+		unlocks = GameConfiguration.Instance.thresholdIndex > 3 ? 3 : GameConfiguration.Instance.thresholdIndex;
 		
 		// Spawn strategy.
 		while(density < densityMax && minPosition < .85f){	// Synchronize progressive introduction of obstacles.

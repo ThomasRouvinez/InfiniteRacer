@@ -53,6 +53,7 @@ public class Loader : MonoBehaviour {
 
 			// Start game.
 			Time.timeScale = 1;
+			GameConfiguration.Instance.started = true;
 			Destroy (this);
 		}
 	}

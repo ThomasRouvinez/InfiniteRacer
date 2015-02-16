@@ -49,7 +49,7 @@ public class ShipCollisions : MonoBehaviour {
 	void OnTriggerEnter(Collider collision){
 		// Coins detection.
 		if(collision.gameObject.tag == "Recharge"){
-			GameConfiguration.Instance.energy = Mathf.Clamp((GameConfiguration.Instance.energy + (Time.deltaTime * 18f)), 0f, 100f);
+			GameConfiguration.Instance.energy = Mathf.Clamp((GameConfiguration.Instance.energy + (Time.deltaTime * (GameConfiguration.Instance.speed / 10))), 0f, 100f);
 			GameConfiguration.Instance.score += Time.deltaTime * 20f;
 		}
 		
@@ -91,16 +91,16 @@ public class ShipCollisions : MonoBehaviour {
 
 				GameConfiguration.Instance.speed = 0f;
 				GameConfiguration.Instance.causeOfDeath = 2;
+
 				// Destroy the ship.
 				player.onCollision = true;
 				player.motion = 0f;
 
-				music.audio.Stop();
 				explosion.audio.Play();
-
 				StartCoroutine(WaitAndExplode(0f));
 
 				GameConfiguration.Instance.ended = true;
+				music.audio.Stop();
 			}
 		}
 	}

@@ -17,6 +17,7 @@ public class PauseMenu : MonoBehaviour {
 	public GUISkin pauseMainMenu;
 
 	public AudioSource engine;
+	public AudioSource levelMusic;
 
 	private int width;
 	private int height;
@@ -32,15 +33,17 @@ public class PauseMenu : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Escape) && GameConfiguration.Instance.paused == false){
+		if(Input.GetKeyDown(KeyCode.Escape) & GameConfiguration.Instance.paused == false & GameConfiguration.Instance.ended == false){
 			GameConfiguration.Instance.paused = true;
-			engine.Stop();
+			engine.Pause();
+			levelMusic.Pause();
 			Time.timeScale = 0;
 		}
 		
-		else if(Input.GetKeyDown(KeyCode.Escape) && GameConfiguration.Instance.paused == true){
+		else if(Input.GetKeyDown(KeyCode.Escape) & GameConfiguration.Instance.paused == true){
 			GameConfiguration.Instance.paused = false;
 			engine.Play();
+			levelMusic.Play();
 			Time.timeScale = 1;
 		}
 	}

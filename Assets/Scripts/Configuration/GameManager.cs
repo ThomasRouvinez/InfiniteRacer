@@ -23,7 +23,10 @@ public class GameManager : MonoBehaviour {
 	private LTRect rewardLogo;
 	public GUISkin skinReward;
 
+	public AudioSource levelMusic;
 	public AudioSource audioReward;
+	public AudioClip loopA;
+	public AudioClip loopB;
 
 	/*
 	 * Author : Arnaud Durand
@@ -135,6 +138,8 @@ public class GameManager : MonoBehaviour {
 		GameConfiguration.Instance.paused = false;
 		GameConfiguration.Instance.ended = false;
 		GameConfiguration.Instance.causeOfDeath = 0;
+		GameConfiguration.Instance.musicChanged = false;
+		GameConfiguration.Instance.started = false;
 	}
 
 	public void Destroy(){
