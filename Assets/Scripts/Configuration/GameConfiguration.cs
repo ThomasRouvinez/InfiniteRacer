@@ -42,16 +42,13 @@ public class GameConfiguration {
 	public float energyMax = 100f;
 	public float startSpeed = 120f;
 	public float maxSpeed = 300f;
+	public float score = 0f;
 
-	public bool isShieldEnabled = false;
 	public bool isOnPowerUp = false;
 	public bool paused = false;
 	public bool started = false;
 	public bool ended = false;
 	public bool musicChanged = false;
-
-	public int coins = 0;
-	public float score = 0f;
 
 	public byte causeOfDeath = 0;
 

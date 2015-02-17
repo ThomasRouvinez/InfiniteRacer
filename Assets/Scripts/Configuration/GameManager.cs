@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour {
 	public float timer;
 	
 	private float speedCheck;
-	private PowerupStacker powerups = new PowerupStacker();
 
 	private int width;
 	private int height;
@@ -24,39 +23,10 @@ public class GameManager : MonoBehaviour {
 	public GUISkin skinReward;
 
 	public AudioSource levelMusic;
-	public AudioSource audioReward;
+	public AudioSource sourceReward;
+	public AudioClip[] audioRewards;
 	public AudioClip loopA;
 	public AudioClip loopB;
-
-	/*
-	 * Author : Arnaud Durand
-	 * Description : handle powerup stacking and triggering.
-	 */
-	class PowerupStacker {
-		public const int size = 3;
-
-		private List<Powerup> items = new List<Powerup>();
-
-		public Texture2D[] icons = new Texture2D[0];
-
-		private void BufferIcons(){
-			icons = items.Select(p => p.icon).ToArray();
-		}
-
-		public void Push(Powerup item){
-			if (items.Count < size){
-				Debug.Log(item);
-				items.Add(item);
-				BufferIcons();
-			}
-		}
-
-		public void Pop(int itemAtPosition){
-			items[itemAtPosition].Trigger();
-			items.RemoveAt(itemAtPosition);
-			BufferIcons();
-		}
-	}
 		
 	// ----------------------------------------------------------------------
 	// Update score.
@@ -104,18 +74,6 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void OnGUI(){
-		if (!GameConfiguration.Instance.ended){
-			GUI.skin = powerupSkins;
-
-			for (int i = 0 ; i < powerups.icons.Length; i++){
-				if (GUI.Button (new Rect (width - (width / 10) - i * (width / 10), height - (width / 10), (width / 12), (width / 12)), powerups.icons [i])
-				    || Input.GetKey (KeyCode.Space) && GameConfiguration.Instance.isOnPowerUp == false)
-				{
-					powerups.Pop (i);
-				}
-			}				
-		}
-
 		// To display the Rewards if needed.
 		if(rewardOn == true){
 			GUI.skin = skinReward;
@@ -124,14 +82,9 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void addPowerup(Powerup powerup){
-		powerups.Push(powerup);
-	}
-
 	public void ResetConfiguration () {
 		GameConfiguration.Instance.energy = 100f;
 		GameConfiguration.Instance.speed = 120f;
-		GameConfiguration.Instance.coins = 0;
 		GameConfiguration.Instance.score = 0;
 		GameConfiguration.Instance.distance = 0;
 		GameConfiguration.Instance.thresholdIndex = 0;
@@ -162,8 +115,19 @@ public class GameManager : MonoBehaviour {
 			rewardOn = true;
 			reward.color.a = 1f;
 			++GameConfiguration.Instance.thresholdIndex;
-			audioReward.Play ();
+
+			// Play specific reward sound.
+			if(GameConfiguration.Instance.thresholdIndex < audioRewards.Length){
+				sourceReward.clip = audioRewards[GameConfiguration.Instance.thresholdIndex];
+				sourceReward.Play();
+			}
+			else{
+				sourceReward.clip = audioRewards[audioRewards.Length-1];
+				sourceReward.Play();
+			}
+
 			StartCoroutine(fadeOut(1.5f, reward));
+			
 		}
 
 		yield return new WaitForSeconds(1f);

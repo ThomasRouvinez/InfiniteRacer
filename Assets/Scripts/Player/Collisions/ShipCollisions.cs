@@ -61,7 +61,7 @@ public class ShipCollisions : MonoBehaviour {
 		}
 
 		// Falling from half pipes detection.
-		else if(collision.gameObject.name == "ColliderHalfPipe" && GameConfiguration.Instance.isShieldEnabled == false){
+		else if(collision.gameObject.name == "ColliderHalfPipe"){
 			collision.enabled = false;
 			player.enabled=false;
 
@@ -84,24 +84,21 @@ public class ShipCollisions : MonoBehaviour {
 
 		// Lost the game.
 		else{
-			if(GameConfiguration.Instance.isShieldEnabled == false){
+			foreach(Collider collider in GetComponents<Collider>())
+				collider.enabled = false;
 
-				foreach(Collider collider in GetComponents<Collider>())
-					collider.enabled = false;
+			GameConfiguration.Instance.speed = 0f;
+			GameConfiguration.Instance.causeOfDeath = 2;
 
-				GameConfiguration.Instance.speed = 0f;
-				GameConfiguration.Instance.causeOfDeath = 2;
+			// Destroy the ship.
+			player.onCollision = true;
+			player.motion = 0f;
 
-				// Destroy the ship.
-				player.onCollision = true;
-				player.motion = 0f;
+			explosion.audio.Play();
+			StartCoroutine(WaitAndExplode(0f));
 
-				explosion.audio.Play();
-				StartCoroutine(WaitAndExplode(0f));
-
-				GameConfiguration.Instance.ended = true;
-				music.audio.Stop();
-			}
+			GameConfiguration.Instance.ended = true;
+			music.audio.Stop();
 		}
 	}
 
