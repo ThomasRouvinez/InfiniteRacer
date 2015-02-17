@@ -36,6 +36,7 @@ public class MenuAnimator : MonoBehaviour {
 	public GameObject DarkBar;
 	public GameObject earth;
 	public AudioSource menuMusic;
+	public AudioSource spaceAmbiant;
 
 	public GUISkin skinMenu;
 	public GUISkin skinHangarButtons;
@@ -47,8 +48,6 @@ public class MenuAnimator : MonoBehaviour {
 	public GUISkin skinSettingsScreen;
 	public GUISkin skinExitScreen;
 	public GUISkin skinCredits;
-	public GUISkin skinCreditsString;
-	public GUISkin skinCreditsAttributions;
 	public GUISkin hardcore;
 	public GUISkin skinHangarSelectedButton;
 
@@ -98,10 +97,7 @@ public class MenuAnimator : MonoBehaviour {
 		menus = new LTRect[12];
 		menus[0] = new LTRect(width, (height * 0.3f),(width * 0.85f), (height * 0.6f));					// Race container.
 		menus[1] = new LTRect(width, (height * 0.3f),(width * 0.85f), (height * 0.6f));					// Exit container.
-		menus[2] = new LTRect((width * 0.1f), (height * 0.2f), (width * 0.9f), (height * 0.8f));		// Arnaud's credits.
-		menus[3] = new LTRect((width * 0.1f), (height * 0.2f), (width * 0.9f), (height * 0.8f));		// Thomas' credits.
-		menus[4] = new LTRect((width * 0.1f), (height * 0.2f), (width * 0.9f), (height * 0.8f));		// Didier's credits.
-		menus[5] = new LTRect((width * 0.1f), (height * 0.2f), (width * 0.9f), (height * 0.8f));		// Leonard's credits.
+		menus[2] = new LTRect((width * 0.1f), (height * 0.2f), (width * 0.9f), (height * 0.8f));		// Credits.
 		menus[6] = new LTRect(width, (height * 0.1f), (width * 0.5f), (height * 0.8f));					// Ship's images.
 		menus[7] = new LTRect((width * 0.1f), height, (width * 0.4f), (height * 0.8f));					// Ship's description.
 		menus[8] = new LTRect((width * 0.17f), height, (width * 0.62f), (height * 0.7f));				// Highscores container.
@@ -127,17 +123,8 @@ public class MenuAnimator : MonoBehaviour {
 
 		exitMessages = new string[]{"[Yes] I pretend I have work to do",
 									"[Yes] I'm a sissie", 
-									"[Yes] This is game is too hard for me"};
-
-		creditsStrings = new string[]{"ARNAUD 'REXCORTEX' DURAND", 
-									"THOMAS 'RASTE' ROUVINEZ", 
-									"DIDIER 'CYBERNEMO' AEBERHARD", 
-									"LEONARD 'LEOBITS' STALDER"};
-
-		creditsAttributionStrings = new string[]{"\nPHYSICS PROGRAMMER\nGAMEPLAY PROGRAMMER\nPERFORMANCE OPTIMIZER\nSYSTEM ANALYST", 
-									"\nCONCEPT ARTIST\n3D MODELLER\nTECHNICAL ARTIST\nGAMEPLAY PROGRAMMER\nLEAD USER INTERFACE", 
-									"\nANIMATION PROGRAMMER\nGAMEPLAY PROGRAMMER\nAUDIO DESIGNER\nQA MANAGER", 
-									"\nTOOLS PROGRAMMER\nDATABASE DESIGNER\nGAMEPLAY PROGRAMMER\nSERVER ARCHITECT"};
+									"[Yes] This is game is too hard for me",
+									"[Yes] I give up easily..."};
 		
 		top = new Vector2(0f, 0f);
 		topSize = new Vector2((width * 0.5f), (height * 0.2f));
@@ -162,12 +149,14 @@ public class MenuAnimator : MonoBehaviour {
 	IEnumerator checkAudio(){
 		if(GameConfiguration.Instance.menuMusicOn == false && menuMusic.audio.isPlaying){
 			menuMusic.audio.Stop();
+			spaceAmbiant.Play();
 		}
 
 		yield return new WaitForSeconds(0.2f);
 
 		if(GameConfiguration.Instance.menuMusicOn == true && !menuMusic.audio.isPlaying){
 			menuMusic.audio.Play();
+			spaceAmbiant.Stop();
 		}
 
 		yield return new WaitForSeconds(0.2f);
@@ -416,48 +405,11 @@ public class MenuAnimator : MonoBehaviour {
 			break;
 
 		case 4:
-			// Display 4 buttons.
-			GUI.skin = creditHeads[0];
-			if(GUI.Button(buttons[2].rect, "") && creditSelected != 2){		// Arnaud.
-				LeanTween.alpha(menus[creditSelected], 0f, alphaSpeedCredits);
-				LeanTween.alpha(menus[2], 1f, alphaSpeedCredits);
-				creditSelected = 2;
-			}
-
-			GUI.skin = creditHeads[1];
-			if(GUI.Button(buttons[3].rect, "") && creditSelected != 3){	// Thomas.
-				LeanTween.alpha(menus[creditSelected], 0f, alphaSpeedCredits);
-				LeanTween.alpha(menus[3], 1f, alphaSpeedCredits);
-				creditSelected = 3;
-			}
-
-			GUI.skin = creditHeads[2];
-			if(GUI.Button(buttons[4].rect, "") && creditSelected != 4){	// Didier.
-				LeanTween.alpha(menus[creditSelected], 0f, alphaSpeedCredits);
-				LeanTween.alpha(menus[4], 1f, alphaSpeedCredits);
-				creditSelected = 4;
-			}
-
-			GUI.skin = creditHeads[3];
-			if(GUI.Button(buttons[5].rect, "") && creditSelected != 5){	// Leonard.
-				LeanTween.alpha(menus[creditSelected], 0f, alphaSpeedCredits);
-				LeanTween.alpha(menus[5], 1f, alphaSpeedCredits);
-				creditSelected = 5;
-			}
-
 			// Display the credit pannels.
 			GUI.skin = skinCredits;
 			tmpFontSize = (int) (menus[2].width * 0.05);
 
-			GUI.Box(menus[2].rect, "<size=" + tmpFontSize + ">LEAD PROGRAMMER</size>");		// Credits AD.
-			GUI.Box(menus[3].rect, "<size=" + tmpFontSize + ">LEAD ARTIST</size>");			// Credits TR.
-			GUI.Box(menus[4].rect, "<size=" + tmpFontSize + ">SOFTWARE ENGINEER</size>");	// Credits DA.
-			GUI.Box(menus[5].rect, "<size=" + tmpFontSize + ">SOFTWARE ENGINEER</size>");	// Credits LS.
-
-			GUI.skin = skinCreditsString;
-			GUI.Box(menus[10].rect, "<size=" + (menus[10].width * 0.03) + ">" + creditsStrings[creditSelected -2] + "</size>");
-			GUI.skin = skinCreditsAttributions;
-			GUI.Box(menus[11].rect, "<size=" + (menus[11].width * 0.03) + ">" + creditsAttributionStrings[creditSelected -2] + "</size>");
+			GUI.Box(menus[2].rect, "");		// Credits AD.
 
 			GUI.skin = null;
 			break;
