@@ -62,6 +62,8 @@ public class PauseMenu : MonoBehaviour {
 			GUI.skin = pauseResume;
 			if(GUI.Button(new Rect (width,height,(Screen.width * 0.3f),(Screen.height * 0.1f)), "<size=" + (width * 0.04f) + ">RESUME</size>"))
 			{
+				levelMusic.Play();
+				engine.Play();
 				Time.timeScale = 1;
 				GameConfiguration.Instance.paused = false;
 			}

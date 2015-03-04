@@ -21,24 +21,30 @@ public class ShipCollisions : MonoBehaviour {
 	public AudioSource coinNoise;
 	public AudioSource music;
 	public AudioSource explosion;
-
-	// Scripts references.
-	//public GameObject navigation;
+	public AudioSource energy;
+	public AudioSource slowDown;
+	
 	public GameObject camera;
 	public GameObject ship;
 
 	public Detonator smokePrefab;
 	public GameManager gameManager;
 
-	//private HUD hud;
 	private PlayerBehaviour player;
+	private float delta = 0f;
+	private float delta2 = 0f;
 
 	// ------------------------------------------------------------------------
 	// Start.
 	// ------------------------------------------------------------------------
 
-	void Start () {
+	void Start(){
 		player = ship.GetComponent<PlayerBehaviour>();
+	}
+
+	void Update(){
+		energy.volume = Mathf.Clamp(energy.volume - Time.deltaTime, 0f, 1f);
+		slowDown.volume = Mathf.Clamp(energy.volume - Time.deltaTime, 0f, 1f);
 	}
 
 	// ------------------------------------------------------------------------
@@ -51,13 +57,24 @@ public class ShipCollisions : MonoBehaviour {
 		if(collision.gameObject.tag == "Recharge"){
 			GameConfiguration.Instance.energy = Mathf.Clamp((GameConfiguration.Instance.energy + (Time.deltaTime * (GameConfiguration.Instance.speed / 10))), 0f, 100f);
 			GameConfiguration.Instance.score += Time.deltaTime * 20f;
+
+			energy.volume = 0.5f;
+
+			if(! energy.isPlaying || (Time.time - delta > 1.5f)){
+				energy.Play();
+				delta = Time.time;
+			}
 		}
 		
 		else if(collision.gameObject.tag == "SlowDown"){
 			GameConfiguration.Instance.speed = Mathf.Clamp((GameConfiguration.Instance.speed - (Time.deltaTime * 15f)), 120f, 300f);
 
-			// Reduce the FOV.
-			camera.camera.fieldOfView = Mathf.Clamp((camera.camera.fieldOfView - Time.deltaTime * 30f), 60f, 90f);
+			slowDown.volume = 1f;
+			
+			if(! slowDown.isPlaying || (Time.time - delta2 > 1.5f)){
+				slowDown.Play();
+				delta2 = Time.time;
+			}
 		}
 
 		// Falling from half pipes detection.
