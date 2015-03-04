@@ -147,15 +147,15 @@ public class MenuAnimator : MonoBehaviour {
 	}
 
 	IEnumerator checkAudio(){
-		if(GameConfiguration.Instance.menuMusicOn == false && menuMusic.audio.isPlaying){
-			menuMusic.audio.Stop();
+		if(GameConfiguration.Instance.menuMusicOn == false && menuMusic.GetComponent<AudioSource>().isPlaying){
+			menuMusic.GetComponent<AudioSource>().Stop();
 			spaceAmbiant.Play();
 		}
 
 		yield return new WaitForSeconds(0.2f);
 
-		if(GameConfiguration.Instance.menuMusicOn == true && !menuMusic.audio.isPlaying){
-			menuMusic.audio.Play();
+		if(GameConfiguration.Instance.menuMusicOn == true && !menuMusic.GetComponent<AudioSource>().isPlaying){
+			menuMusic.GetComponent<AudioSource>().Play();
 			spaceAmbiant.Stop();
 		}
 
@@ -244,7 +244,7 @@ public class MenuAnimator : MonoBehaviour {
 		GUI.skin = skinBackButton;
 
 		if(GUI.Button(backMenu.rect, "")){
-			backClick.audio.Play();
+			backClick.GetComponent<AudioSource>().Play();
 			reset();
 		}
 
@@ -360,7 +360,7 @@ public class MenuAnimator : MonoBehaviour {
 			GUI.skin = skinHighscoresButton;
 
 			if(GUI.Button(buttons[6].rect, "")){	// Refresh button.
-				highscoresRefreshButton.audio.Play();
+				highscoresRefreshButton.GetComponent<AudioSource>().Play();
 				LoadHighscores();
 			}
 
@@ -445,7 +445,7 @@ public class MenuAnimator : MonoBehaviour {
 
 		if(tempCount < 1){
 			LeanTween.move(backMenu, new Vector2(backMenu.rect.x + (width * 0.1f), backMenu.rect.y), translationSpeed);
-			click.audio.Play();
+			click.GetComponent<AudioSource>().Play();
 		}
 	}
 

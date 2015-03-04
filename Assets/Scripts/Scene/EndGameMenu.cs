@@ -46,8 +46,8 @@ public class EndGameMenu : MonoBehaviour {
 
 	void EnableGUI(){
 		guiEnabled = true;
-		engine.audio.Stop();
-		endGameAmbiant.audio.Play();
+		engine.GetComponent<AudioSource>().Stop();
+		endGameAmbiant.GetComponent<AudioSource>().Play();
 	}
 
 	// ------------------------------------------------------------------

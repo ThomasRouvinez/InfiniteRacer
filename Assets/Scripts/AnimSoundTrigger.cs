@@ -14,11 +14,11 @@ public class AnimSoundTrigger : MonoBehaviour {
 
 	void triggerFlyBy1()
 	{
-		flyby1.audio.Play();
+		flyby1.GetComponent<AudioSource>().Play();
 	}
 
 	void triggerFlyBy2()
 	{
-		flyby2.audio.Play();
+		flyby2.GetComponent<AudioSource>().Play();
 	}
 }

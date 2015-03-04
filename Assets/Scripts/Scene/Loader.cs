@@ -46,10 +46,10 @@ public class Loader : MonoBehaviour {
 
 			// Start the music and engine sound.
 			if(GameConfiguration.Instance.gameMusicOn == true){
-				music.audio.Play();
+				music.GetComponent<AudioSource>().Play();
 			}
 
-			engine.audio.Play();
+			engine.GetComponent<AudioSource>().Play();
 
 			// Start game.
 			Time.timeScale = 1;

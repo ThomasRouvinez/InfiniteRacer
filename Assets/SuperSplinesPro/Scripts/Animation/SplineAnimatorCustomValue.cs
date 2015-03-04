@@ -31,7 +31,7 @@ public class SplineAnimatorCustomValue : MonoBehaviour
 		transform.position = spline.GetPositionOnSpline( clampedParam );
 		transform.rotation = spline.GetOrientationOnSpline( clampedParam );
 		
-		renderer.material.color = Color.red * (1f-customValue) + Color.blue * (customValue);
+		GetComponent<Renderer>().material.color = Color.red * (1f-customValue) + Color.blue * (customValue);
 	}
 	
 	private float WrapValue( float v, float start, float end, WrapMode wMode )

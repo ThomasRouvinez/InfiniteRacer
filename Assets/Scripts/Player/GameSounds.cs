@@ -21,7 +21,7 @@ public class GameSounds : MonoBehaviour {
 	//public AudioClip clip = Resources.Load(path);
 
 	public void playCoinAudio(){
-		coin_Noise = gameObject.AddComponent("coin_earn") as AudioSource;
+		coin_Noise = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(gameObject, "Assets/Scripts/Player/GameSounds.cs (24,16)", "coin_earn") as AudioSource;
 		coin_Noise.Play();
 	}
 

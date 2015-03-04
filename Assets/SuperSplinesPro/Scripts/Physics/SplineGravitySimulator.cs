@@ -13,20 +13,20 @@ public class SplineGravitySimulator : MonoBehaviour
 	void Start( )
 	{
 		//Disable default gravity calculations
-		rigidbody.useGravity = false;
+		GetComponent<Rigidbody>().useGravity = false;
 	}
 	
 	void FixedUpdate( ) 
 	{
-		if( rigidbody == null || spline == null )
+		if( GetComponent<Rigidbody>() == null || spline == null )
 			return;
 		
-		Vector3 closestPointOnSpline = spline.GetPositionOnSpline( spline.GetClosestPointParam( rigidbody.position, iterations ) ); 
-		Vector3 shortestConnection = closestPointOnSpline - rigidbody.position;
+		Vector3 closestPointOnSpline = spline.GetPositionOnSpline( spline.GetClosestPointParam( GetComponent<Rigidbody>().position, iterations ) ); 
+		Vector3 shortestConnection = closestPointOnSpline - GetComponent<Rigidbody>().position;
 		
 		//Calculate gravity force according to Newton's law of universal gravity
-		Vector3 force = shortestConnection * Mathf.Pow( shortestConnection.magnitude, -3 ) * gravityConstant * rigidbody.mass;
+		Vector3 force = shortestConnection * Mathf.Pow( shortestConnection.magnitude, -3 ) * gravityConstant * GetComponent<Rigidbody>().mass;
 		
-		rigidbody.AddForce( force );
+		GetComponent<Rigidbody>().AddForce( force );
 	}
 }

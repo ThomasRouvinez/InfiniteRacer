@@ -86,8 +86,8 @@ public class ShipCollisions : MonoBehaviour {
 			GameConfiguration.Instance.causeOfDeath = 1;
 			Rigidbody rigidBody = GetComponent<Rigidbody>();
 
-			rigidbody.isKinematic=false;
-			rigidbody.AddForce(transform.localPosition*50000f+transform.forward*20000f*GameConfiguration.Instance.speed);
+			GetComponent<Rigidbody>().isKinematic=false;
+			GetComponent<Rigidbody>().AddForce(transform.localPosition*50000f+transform.forward*20000f*GameConfiguration.Instance.speed);
 
 			StartCoroutine(WaitAndFall(0.3f));
 		}
@@ -111,18 +111,18 @@ public class ShipCollisions : MonoBehaviour {
 			player.onCollision = true;
 			player.motion = 0f;
 
-			explosion.audio.Play();
+			explosion.GetComponent<AudioSource>().Play();
 			StartCoroutine(WaitAndExplode(0f));
 
 			GameConfiguration.Instance.ended = true;
-			music.audio.Stop();
+			music.GetComponent<AudioSource>().Stop();
 		}
 	}
 
 	IEnumerator WaitAndFall(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
 		
-		Destroy(rigidbody);
+		Destroy(GetComponent<Rigidbody>());
 		Destroy(GetComponent<ShipAnimator>());
 		
 		yield return new WaitForSeconds(1f);
@@ -137,7 +137,7 @@ public class ShipCollisions : MonoBehaviour {
 	IEnumerator WaitAndExplode(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
 
-		Destroy(rigidbody);
+		Destroy(GetComponent<Rigidbody>());
 		Destroy(GetComponent<ShipAnimator>());
 
 		Detonator[] parts=GetComponentsInChildren<Detonator>();
@@ -148,7 +148,7 @@ public class ShipCollisions : MonoBehaviour {
 
 			part.gameObject.AddComponent<Rigidbody>();
 			part.transform.parent=null;
-			part.rigidbody.AddExplosionForce(200f,transform.position-transform.forward*10,20f);
+			part.GetComponent<Rigidbody>().AddExplosionForce(200f,transform.position-transform.forward*10,20f);
 		}
 
 		GetComponent<Detonator>().Explode();

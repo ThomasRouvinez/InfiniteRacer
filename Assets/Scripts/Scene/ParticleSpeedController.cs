@@ -17,6 +17,6 @@ public class ParticleSpeedController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		starfield.particleEmitter.localVelocity = new Vector3(0,GameConfiguration.Instance.speed,0);
+		starfield.GetComponent<ParticleEmitter>().localVelocity = new Vector3(0,GameConfiguration.Instance.speed,0);
 	}
 }
