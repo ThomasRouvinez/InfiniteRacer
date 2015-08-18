@@ -8,39 +8,15 @@ using System.Collections.Generic;
  * 
  */
 public class Pooling : MonoBehaviour {
-
-	// -------------------------------------------------------------------------------------
-	// Initializes a single instance.
-	// -------------------------------------------------------------------------------------
-
-	static Pooling instance = null;
-	static readonly object padlock = new object();
 	
-	Pooling(){}
-	
-	public static Pooling Instance{
-		get{
-			if (instance == null){
-				lock (padlock){
-					if (instance == null){
-						instance = new Pooling();
-					}
-				}
-			}
-			
-			return instance;
-		}
-	}
-
 	// -------------------------------------------------------------------------------------
 	// Variables.
 	// -------------------------------------------------------------------------------------
 
-	public GameObject[] refObjects;
+	public NavigationBehaviour[] refObjects;
 	public int [] poolSizes;
 
-	private List<GameObject>[] pools;
-	private Dictionary<string, int> index;
+	private List<NavigationBehaviour>[] pools;
 
 	// -------------------------------------------------------------------------------------
 	// Initialization.
@@ -48,23 +24,16 @@ public class Pooling : MonoBehaviour {
 
 	void Start () {
 		// Instantiate all objects.
-		pools = new List<GameObject>[refObjects.Length];
+		pools = new List<NavigationBehaviour>[refObjects.Length];
 
 		for(int i = 0 ; i < refObjects.Length ; i++){
-			pools[i] = new List<GameObject>();
+			pools[i] = new List<NavigationBehaviour>();
 
 			for(int j = 0 ; j < poolSizes[i]; j++){
-				GameObject obj = (GameObject)Instantiate(refObjects[i]);
-				obj.SetActive(false);
+				NavigationBehaviour obj = Instantiate(refObjects[i], new Vector3(0f,0f,0f), Quaternion.identity) as NavigationBehaviour;
+				obj.gameObject.SetActive(false);
 				pools[i].Add(obj);
 			}
-		}
-
-		// Create a hashmap for easy object retrieval.
-		index = new Dictionary<string, int>();
-
-		for(int i = 0 ; i < refObjects.Length ; i++){
-			index.Add(refObjects[i].tag, i);
 		}
 	}
 
@@ -72,24 +41,26 @@ public class Pooling : MonoBehaviour {
 	// Functions.
 	// -------------------------------------------------------------------------------------
 
-	public GameObject getOrCreate(GameObject reference){
-		if(pools[index[reference.tag]].Count > 0){
-			// Select last in list and give object.
-			int lastIndex = pools[index[reference.tag]].Count-1;
-			GameObject selected = pools[index[reference.tag]][lastIndex];
-			pools[index[reference.tag]].RemoveAt(lastIndex);
+	public NavigationBehaviour getOrCreate(int reference){
+		Debug.Log("TAG " + reference);
 
-			selected.SetActive(true);
-			return selected;
+		if(pools[reference].Count < 0){
+			Debug.Log("NEW ASSET CREATED");
+			return Instantiate(refObjects[reference], new Vector3(0f,0f,0f), Quaternion.identity) as NavigationBehaviour;
 		}
-		else{
-			// Object not present or available, instantiate a new one.
-			return (GameObject)Instantiate(refObjects[index[reference.tag]]);
-		}
+
+		// Select last in list and give object.
+		int lastIndex = pools[reference].Count-1;
+		NavigationBehaviour selected = pools[reference][lastIndex];
+		pools[reference].RemoveAt(lastIndex);
+		
+		selected.gameObject.SetActive(true);
+		return selected;
 	}
 
-	public void destroy(GameObject reference){
-		reference.SetActive(false);
-		pools[index[reference.tag]].Add(reference);
+	public void destroy(NavigationBehaviour pooledObject, int reference){
+		pooledObject.gameObject.SetActive(false);
+		pooledObject.transform.parent = null;
+		pools[reference].Add(pooledObject);
 	}
 }

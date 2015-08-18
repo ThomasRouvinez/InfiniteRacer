@@ -15,10 +15,15 @@ public class NavigationController : MonoBehaviour {
 	private float splinePosition = 0f;
 	private NavigationBehaviour[] pipes;
 	private int pipeIdx = 0;
+	private int pipesCount = 0;
 
 	public NavigationBehaviour[] pipePrefabs;
 	public NavigationBehaviour startPipePrefab;
 	public Camera camera;
+
+	public GameObject configuration;
+	private Pooling pipesPool;
+	private int [] pipesStoredIndex;
 
 	public Transform rotationAxis;
 	public PlayerBehaviour player;
@@ -29,25 +34,28 @@ public class NavigationController : MonoBehaviour {
 
 	void Start(){
 		pipes = new NavigationBehaviour[5];
+		pipesStoredIndex = new int[5];
 
+		pipesPool = configuration.GetComponent<Pooling>();
+		
 		Vector3 nextPosition = Vector3.zero;
 		Quaternion nextOrientation = Quaternion.identity;
 		Spline currentSpline = null;
-
+		
 		NavigationBehaviour pipePrefab = startPipePrefab;
 		
 		for(int i = 0 ; i < pipes.Length; i++){
 			pipes[i] = Instantiate(pipePrefab, nextPosition, nextOrientation) as NavigationBehaviour;
-
+			
 			pipes[i].transform.parent=transform;
-
+			
 			pipes[i].torque = i != 0 ? GenerateTorque(): 0 ;
 			pipes[i].transform.Rotate(new Vector3(0,0,pipes[i].torque), Space.Self);
-
+			
 			currentSpline = pipes[i].spline;
 			nextPosition = currentSpline.GetPositionOnSpline(1f);
 			nextOrientation = currentSpline.GetOrientationOnSpline(1f);
-
+			
 			pipePrefab = pipePrefabs[UnityEngine.Random.Range(0,pipePrefabs.Length)];
 		}
 	}
@@ -92,14 +100,29 @@ public class NavigationController : MonoBehaviour {
 	// --------------------------------------------------------------------------------------
 
 	void RespawnBlocks(){
-		Destroy(pipes[pipeIdx].gameObject);
+		// Destroy the pipe.
+		if(pipesCount < 5){
+			Destroy(pipes[pipeIdx].gameObject);
+		}
+		else{
+			pipesPool.destroy(pipes[pipeIdx], pipesStoredIndex[pipeIdx]);
+		}
 
+		pipesCount++;
+
+		// Create or get a new one from the pool.
 		int prvIdx = (pipeIdx + pipes.Length-1) % pipes.Length;
 		Spline previousSpline = pipes[prvIdx].GetComponent<Spline>();
 
-		pipes[pipeIdx] = Instantiate(pipePrefabs[UnityEngine.Random.Range(0,pipePrefabs.Length)], previousSpline.GetPositionOnSpline(1f), previousSpline.GetOrientationOnSpline(1f)) as NavigationBehaviour;
-		pipes[pipeIdx].transform.parent = transform;
+		// Get a new one from the pool.
+		pipesStoredIndex[pipeIdx] = UnityEngine.Random.Range(0,pipePrefabs.Length);
+		NavigationBehaviour nextPipe = pipesPool.getOrCreate(pipesStoredIndex[pipeIdx]);
+		nextPipe.transform.position = previousSpline.GetPositionOnSpline(1f);
+		nextPipe.transform.rotation = previousSpline.GetOrientationOnSpline(1f);
 
+		pipes[pipeIdx] = nextPipe;
+		pipes[pipeIdx].transform.parent = transform;
+	
 		// Avoid pipes from going opposite directions.
 		pipes[pipeIdx].torque = Mathf.Clamp(GenerateTorque(), previousSpline.GetOrientationOnSpline(1f).z -90, previousSpline.GetOrientationOnSpline(1f).z +90);
 		
