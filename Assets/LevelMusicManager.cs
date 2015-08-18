@@ -5,16 +5,21 @@ public class LevelMusicManager : MonoBehaviour {
 	
 	public AudioClip loopB;
 	public AudioSource musicSource;
+	private bool changed = false;
 
-	// Update is called once per frame
-	void Update () {
-		if(GameConfiguration.Instance.started == true & !musicSource.isPlaying){
-			if(GameConfiguration.Instance.ended != true && GameConfiguration.Instance.paused != true){
-				musicSource.Stop();
-				musicSource.clip = loopB;
-				musicSource.loop = true;
-				musicSource.Play();
-			}
+	// Update is called once per frame.
+	void changeMusic(){
+		musicSource.Stop();
+		musicSource.clip = loopB;
+		musicSource.loop = true;
+		musicSource.Play();
+		changed = true;
+	}
+
+	void Update(){
+		if(musicSource.time > 121f){
+			changeMusic();
+			Debug.Log("MUSic CHANGED");
 		}
 	}
 }

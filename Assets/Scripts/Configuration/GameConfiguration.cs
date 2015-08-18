@@ -55,7 +55,7 @@ public class GameConfiguration {
 	// Reward system.
 	public long distance = 0;
 	public int thresholdIndex = 0;
-	public long[] thresholdValues = new long[]{2000,5000,10000,20000,30000,40000,50000,75000,100000,150000,200000, 250000};
+	public long[] thresholdValues = new long[]{2000,5000,10000,20000,30000,40000,50000,75000,100000,150000,200000, 250000, 500000};
 
 	// Settings.
 	public bool gameMusicOn;

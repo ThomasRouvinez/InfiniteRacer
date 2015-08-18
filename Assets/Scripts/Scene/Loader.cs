@@ -16,6 +16,7 @@ public class Loader : MonoBehaviour {
 	public Texture loadingTexture;
 	public GUISkin skin;
 	public GameObject navigation;
+	public AudioClip loopA;
 	public AudioSource music;
 	public AudioSource engine;
 	public GameManager gameManager;
@@ -46,6 +47,7 @@ public class Loader : MonoBehaviour {
 
 			// Start the music and engine sound.
 			if(GameConfiguration.Instance.gameMusicOn == true){
+				music.GetComponent<AudioSource>().clip = loopA;
 				music.GetComponent<AudioSource>().Play();
 			}
 

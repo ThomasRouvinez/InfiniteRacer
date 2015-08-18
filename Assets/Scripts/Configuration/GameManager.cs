@@ -21,12 +21,9 @@ public class GameManager : MonoBehaviour {
 	private LTRect reward;
 	private LTRect rewardLogo;
 	public GUISkin skinReward;
-
-	public AudioSource levelMusic;
+	
 	public AudioSource sourceReward;
 	public AudioClip[] audioRewards;
-	public AudioClip loopA;
-	public AudioClip loopB;
 		
 	// ----------------------------------------------------------------------
 	// Update score.

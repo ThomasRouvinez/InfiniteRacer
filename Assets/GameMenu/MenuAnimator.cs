@@ -14,7 +14,7 @@ public class MenuAnimator : MonoBehaviour {
 
 	// Layout variables.
 	private int width, height, leftMargin, topMargin, spacing, selected;
-	private int creditSelected, tempCount, tempRandom, tempRandom,browseShip;
+	private int creditSelected, tempCount, tmpFontSize, tempRandom, browseShip;
 
 	private bool tmpBool;
 	private string hangarSelected;
