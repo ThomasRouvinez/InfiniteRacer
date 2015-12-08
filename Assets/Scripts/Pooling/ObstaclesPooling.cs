@@ -2,64 +2,59 @@
 using System.Collections;
 using System.Collections.Generic;
 
-/*
- * Author : Thomas Rouvinez
- * Description : class to handle pooling of objects.
- * 
- */
-public class Pooling : MonoBehaviour {
+public class ObstaclesPooling : MonoBehaviour {
 	
 	// -------------------------------------------------------------------------------------
 	// Variables.
 	// -------------------------------------------------------------------------------------
-
-	public NavigationBehaviour[] refObjects;
+	
+	public GameObject[] refObjects;
 	public int [] poolSizes;
-
-	private List<NavigationBehaviour>[] pools;
-
+	
+	private List<GameObject>[] pools;
+	
 	// -------------------------------------------------------------------------------------
 	// Initialization.
 	// -------------------------------------------------------------------------------------
-
+	
 	void Start () {
 		// Instantiate all objects.
-		pools = new List<NavigationBehaviour>[refObjects.Length];
-
+		pools = new List<GameObject>[refObjects.Length];
+		
 		for(int i = 0 ; i < refObjects.Length ; i++){
-			pools[i] = new List<NavigationBehaviour>();
-
+			pools[i] = new List<GameObject>();
+			
 			for(int j = 0 ; j < poolSizes[i]; j++){
-				NavigationBehaviour obj = Instantiate(refObjects[i], new Vector3(0f,0f,0f), Quaternion.identity) as NavigationBehaviour;
-				obj.gameObject.SetActive(false);
+				GameObject obj = Instantiate(refObjects[i], new Vector3(0f,0f,0f), Quaternion.identity) as GameObject;
+				obj.SetActive(false);
 				pools[i].Add(obj);
 			}
 		}
 	}
-
+	
 	// -------------------------------------------------------------------------------------
 	// Functions.
 	// -------------------------------------------------------------------------------------
-
-	public NavigationBehaviour getOrCreate(int reference){
-		Debug.Log("TAG " + reference);
+	
+	public GameObject getOrCreate(int reference){
+		Debug.Log("CALL");
 
 		if(pools[reference].Count < 1){
-			Debug.Log("NEW ASSET CREATED");
-			return Instantiate(refObjects[reference], new Vector3(0f,0f,0f), Quaternion.identity) as NavigationBehaviour;
+			Debug.Log("NEW ASSET REQUIRED FOR OBSTACLE POOL");
+			return Instantiate(refObjects[reference], new Vector3(0f,0f,0f), Quaternion.identity) as GameObject;
 		}
-
+		
 		// Select last in list and give object.
 		int lastIndex = pools[reference].Count-1;
-		NavigationBehaviour selected = pools[reference][lastIndex];
+		GameObject selected = pools[reference][lastIndex];
 		pools[reference].RemoveAt(lastIndex);
 		
-		selected.gameObject.SetActive(true);
+		selected.SetActive(true);
 		return selected;
 	}
-
-	public void destroy(NavigationBehaviour pooledObject, int reference){
-		pooledObject.gameObject.SetActive(false);
+	
+	public void destroy(GameObject pooledObject, int reference){
+		pooledObject.SetActive(false);
 		pooledObject.transform.parent = null;
 		pools[reference].Add(pooledObject);
 	}

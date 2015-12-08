@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PipeBehaviour : NavigationBehaviour { 
 
@@ -13,12 +14,24 @@ public class PipeBehaviour : NavigationBehaviour {
 	}
 
 	// Generic function to spawn an obstacle (a spawnable).
-	public IEnumerator spawnObstacle(Transform obstacle, Transform parent, float position, Vector3 rotation){
-		/*Transform spawnable = Instantiate(obstacle, spline.GetPositionOnSpline(position), spline.GetOrientationOnSpline(position)) as Transform;
-		spawnable.transform.parent = parent;
-		yield return new WaitForSeconds(.1f);
-		
-		spawnable.transform.Rotate(rotation,Space.Self);*/
+	public IEnumerator spawnObstacle(ObstaclesPooling obstaclesPool, NavigationBehaviour pipe, int obstacleIndex, float position, Vector3 rotation){
+
+		if(obstaclesPool == null){
+			Debug.Log("FUCK YOU !");
+		}
+
+		// Take the correct obstacle from the pool.
+		GameObject obstacle = obstaclesPool.getOrCreate(obstacleIndex);
+		obstacle.transform.position = spline.GetPositionOnSpline(position);
+		obstacle.transform.rotation = spline.GetOrientationOnSpline(position);
+		obstacle.transform.Rotate(rotation,Space.Self);
+
+		// Write its reference in the pipe's list of obstacles.
+		pipe.getObstaclesList.Add(new PooledObstacle(obstacleIndex, obstacle));
+
+		// Set the correct parent.
+		obstacle.transform.parent = pipe.transform;
+
 		yield return null;
 	}
 }

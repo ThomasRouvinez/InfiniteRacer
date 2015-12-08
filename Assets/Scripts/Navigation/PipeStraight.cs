@@ -42,14 +42,14 @@ public class PipeStraight : PipeBehaviour {
 		obstacles[2] = obsPC3;		densities[2] = 90;		sizes[2] = 0.35f;
 		obstacles[3] = obsPC4;		densities[3] = 120;		sizes[3] = 0.5f;
 
-		StartCoroutine(spawn());
+		StartCoroutine(spawn(this.getObstaclesPool));
 	}
 
 	// -------------------------------------------------------------------------------------
 	// Obstacle strategy.
 	// -------------------------------------------------------------------------------------
 
-	private IEnumerator spawn(){
+	private IEnumerator spawn(ObstaclesPooling obstaclesPool){
 		// Compute maximum density allowed based on the current speed (speed up => less obstacles).
 		densityMax = getDensity();
 
@@ -71,7 +71,7 @@ public class PipeStraight : PipeBehaviour {
 			}
 
 			// Spawn obstacle.
-			StartCoroutine(spawnObstacle(obstacles[random].transform, this.transform, minPosition, new Vector3(0f, 0f, tempRotation)));
+			StartCoroutine(spawnObstacle(obstaclesPool, this, random, minPosition, new Vector3(0f, 0f, tempRotation)));
 
 			// Update strategy factors.
 			lastObstacle = random;

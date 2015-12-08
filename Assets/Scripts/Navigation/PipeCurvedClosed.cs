@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PipeCurvedClosed : PipeBehaviour {
 	
@@ -23,6 +24,7 @@ public class PipeCurvedClosed : PipeBehaviour {
 	private GameObject[] obstacles;
 	private int[] densities;
 	private float[] sizes;
+	private int[] indexes;
 	
 	// -------------------------------------------------------------------------------------
 	// Upon creation, initialize the obstacles.
@@ -34,18 +36,19 @@ public class PipeCurvedClosed : PipeBehaviour {
 		obstacles = new GameObject[2];
 		densities = new int[2];
 		sizes = new float[2];
+		indexes = new int[2];
 		
-		obstacles[0] = obsPC2;		densities[0] = 20;		sizes[0] = 0.1f;
-		obstacles[1] = obsPC5;		densities[1] = 90;		sizes[1] = 0.3f;
+		obstacles[0] = obsPC2;		densities[0] = 20;		sizes[0] = 0.1f;	indexes[0] = 1;
+		obstacles[1] = obsPC5;		densities[1] = 90;		sizes[1] = 0.3f;	indexes[1] = 4;
 		
-		StartCoroutine(spawn());
+		StartCoroutine(spawn(this.getObstaclesPool));
 	}
 	
 	// -------------------------------------------------------------------------------------
 	// Obstacle strategy.
 	// -------------------------------------------------------------------------------------
 	
-	private IEnumerator spawn(){
+	private IEnumerator spawn(ObstaclesPooling obstaclesPool){
 		
 		// Compute maximum density allowed based on the current speed (speed up => less obstacles).
 		densityMax = getDensity();
@@ -75,7 +78,7 @@ public class PipeCurvedClosed : PipeBehaviour {
 			}
 			
 			// Spawn obstacle.
-			StartCoroutine(spawnObstacle(obstacles[random].transform, this.transform, minPosition, new Vector3(0f, 0f, tempRotation)));
+			StartCoroutine(spawnObstacle(obstaclesPool, this, indexes[random], minPosition, new Vector3(0f, 0f, tempRotation)));
 			
 			// Update strategy factors.
 			density += densities[random];

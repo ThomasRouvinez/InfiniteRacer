@@ -23,6 +23,7 @@ public class NavigationController : MonoBehaviour {
 
 	public GameObject configuration;
 	private Pooling pipesPool;
+	private ObstaclesPooling obstaclesPool;
 	private int [] pipesStoredIndex;
 
 	public Transform rotationAxis;
@@ -37,7 +38,8 @@ public class NavigationController : MonoBehaviour {
 		pipesStoredIndex = new int[5];
 
 		pipesPool = configuration.GetComponent<Pooling>();
-		
+		obstaclesPool = configuration.GetComponent<ObstaclesPooling>();
+
 		Vector3 nextPosition = Vector3.zero;
 		Quaternion nextOrientation = Quaternion.identity;
 		Spline currentSpline = null;
@@ -105,6 +107,16 @@ public class NavigationController : MonoBehaviour {
 			Destroy(pipes[pipeIdx].gameObject);
 		}
 		else{
+			// Put back all the obstacles contained in this pipe back to the pool (all children)
+			int count = pipes[pipeIdx].getObstaclesList.Count;
+
+			for(int i = 0 ; i < count ; i++){
+				PooledObstacle tmp = pipes[pipeIdx].getObstaclesList[i];
+				obstaclesPool.destroy(tmp.Obstacle, tmp.Index);
+				pipes[pipeIdx].getObstaclesList.RemoveAt((count -1) -i);
+			}
+
+			// Put back the pipe prefab in the pipes pool.
 			pipesPool.destroy(pipes[pipeIdx], pipesStoredIndex[pipeIdx]);
 		}
 

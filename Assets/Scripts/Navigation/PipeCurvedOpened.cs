@@ -24,6 +24,7 @@ public class PipeCurvedOpened : PipeBehaviour {
 	private GameObject[] obstacles;
 	private int[] densities;
 	private float[] sizes;
+	private int[] indexes;
 
 	// -------------------------------------------------------------------------------------
 	// Upon creation, initialize the obstacles.
@@ -36,19 +37,20 @@ public class PipeCurvedOpened : PipeBehaviour {
 		obstacles = new GameObject[3];
 		densities = new int[3];
 		sizes = new float[3];
+		indexes = new int[3];
 		
-		obstacles[0] = obsPC2;		densities[0] = 10;		sizes[0] = 0.15f;
-		obstacles[1] = obsPC5;		densities[1] = 75;		sizes[1] = 0.3f;
-		obstacles[2] = obsPC6;		densities[2] = 60;		sizes[2] = 0.3f;
+		obstacles[0] = obsPC2;		densities[0] = 10;		sizes[0] = 0.15f;	indexes[0] = 1;		// Should be put in a matrix, just sayin...
+		obstacles[1] = obsPC5;		densities[1] = 75;		sizes[1] = 0.3f;	indexes[1] = 4;
+		obstacles[2] = obsPC6;		densities[2] = 60;		sizes[2] = 0.3f;	indexes[2] = 5;
 
-		StartCoroutine(spawn());
+		StartCoroutine(spawn(this.getObstaclesPool));
 	}
 
 	// -------------------------------------------------------------------------------------
 	// Obstacle strategy.
 	// -------------------------------------------------------------------------------------
 	
-	private IEnumerator spawn(){
+	private IEnumerator spawn(ObstaclesPooling obstaclesPool){
 
 		// Compute maximum density allowed based on the current speed (speed up => less obstacles).
 		densityMax = getDensity();
@@ -78,7 +80,7 @@ public class PipeCurvedOpened : PipeBehaviour {
 			}
 
 			// Spawn obstacle.
-			StartCoroutine(spawnObstacle(obstacles[random].transform, this.transform, minPosition, new Vector3(0f, 0f, tempRotation)));
+			StartCoroutine(spawnObstacle(obstaclesPool, this, indexes[random], minPosition, new Vector3(0f, 0f, tempRotation)));
 			
 			// Update strategy factors.
 			density += densities[random];
